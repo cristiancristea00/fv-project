@@ -1,0 +1,13 @@
+//
+// File created by:  xrun
+// Do not modify this file
+//
+/home/matache.dragos/aces_fv_proj/source/v/rtl/FIFO_BUFFER.v
+/home/matache.dragos/aces_fv_proj/source/v/rtl/TX_BAUD_GEN.v
+/home/matache.dragos/aces_fv_proj/source/v/rtl/UART_TRANSMITTER.v
+/home/matache.dragos/aces_fv_proj/source/v/rtl/UART_TRANSMITTER_TB.v
+/home/matache.dragos/aces_fv_proj/source/v/rtl/UART_TX.v
+/home/matache.dragos/aces_fv_proj/source/sv/transmitter_tb/include/env/env_pkg.sv
+/home/matache.dragos/aces_fv_proj/source/sv/transmitter_tb/include/tests/test_pkg.sv
+/home/matache.dragos/aces_fv_proj/source/sv/transmitter_tb/tb/sys_if.sv
+/home/matache.dragos/aces_fv_proj/source/sv/transmitter_tb/tb/uart_transmitter_tb.sv

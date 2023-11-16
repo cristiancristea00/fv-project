@@ -1,0 +1,34 @@
+
+-64bit
+
++incdir+${proj_root}
++incdir+${proj_root}/source
++incdir+${proj_root}/source/v
++incdir+${proj_root}/source/v/rtl
++incdir+${proj_root}/source/sv/transmitter_tb
++incdir+${proj_root}/source/sv/transmitter_tb/tb
++incdir+${proj_root}/source/sv/transmitter_tb/include
++incdir+${proj_root}/source/sv/transmitter_tb/include/env
++incdir+${proj_root}/source/sv/transmitter_tb/include/tests
+-sv
+-gui
+// RTL compilation files
+${proj_root}/source/v/rtl/*.v
+
+// SV env compilation files
+${proj_root}/source/sv/transmitter_tb/include/env/*.sv
+${proj_root}/source/sv/transmitter_tb/include/tests/*.sv
+${proj_root}/source/sv/transmitter_tb/tb/*.sv
+
+-access rwc
+-linedebug
+-clean
+-uvm
+-uvmlinedebug
+-coverage all
+-covoverwrite
+-timescale 1ns/1ps
+-errormax 2
+-ALLOWREDEFINITION
+-top uart_transmitter_tb
+

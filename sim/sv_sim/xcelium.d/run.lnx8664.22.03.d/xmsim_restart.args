@@ -1,0 +1,49 @@
+//
+// File created by:  xrun
+// Do not modify this file
+//
+-INPUT
+"@source /opt/cadence/installs/XCELIUM2203/tools/methodology/UVM/CDNS-1.1d/additions/sv/files/tcl/uvm_sim.tcl"
++incdir+/home/matache.dragos/aces_fv_proj
++incdir+/home/matache.dragos/aces_fv_proj/source
++incdir+/home/matache.dragos/aces_fv_proj/source/v
++incdir+/home/matache.dragos/aces_fv_proj/source/v/rtl
++incdir+/home/matache.dragos/aces_fv_proj/source/sv/transmitter_tb
++incdir+/home/matache.dragos/aces_fv_proj/source/sv/transmitter_tb/tb
++incdir+/home/matache.dragos/aces_fv_proj/source/sv/transmitter_tb/include
++incdir+/home/matache.dragos/aces_fv_proj/source/sv/transmitter_tb/include/env
++incdir+/home/matache.dragos/aces_fv_proj/source/sv/transmitter_tb/include/tests
+-uvmhome
+/opt/cadence/installs/XCELIUM2203/tools/methodology/UVM/CDNS-1.1d
+-sv_lib
+/opt/cadence/installs/XCELIUM2203/tools/methodology/UVM/CDNS-1.1d/additions/sv/lib/64bit/libuvmpli.so
++UVM_TESTNAME=lulu
+-gui
+-COVOVERWRITE
+-ERRORMAX
+2
+-MESSAGES
+-svseed
+-gui
+-sndynseed
+-gui
+-SV_LIB
+/opt/cadence/installs/XCELIUM2203/tools/methodology/UVM/CDNS-1.1d/additions/sv/lib/64bit/libuvmdpi.so
++EMGRLOG
+xrun.log
+-XLSTIME
+1699943465
+-XLKEEP
+-XLMODE
+./xcelium.d/run.lnx8664.22.03.d
+-RUNMODE
+-CDSLIB
+./xcelium.d/run.lnx8664.22.03.d/cds.lib
+-HDLVAR
+./xcelium.d/run.lnx8664.22.03.d/hdl.var
+-XLNAME
+xrun
+-XLVERSION
+"TOOL:	xrun(64)	22.03-s001"
+-XLNAME
+./xcelium.d/run.lnx8664.22.03.d/sonic.localdomain_23941

@@ -1,0 +1,9 @@
+//
+// File created by:  xrun
+// Do not modify this file
+//
++UVM_TESTNAME=lulu
+-seed
+-gui
+-f
+run.args
