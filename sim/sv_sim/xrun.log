@@ -1,7 +1,0 @@
-xrun(64): 22.03-s001: (c) Copyright 1995-2022 Cadence Design Systems, Inc.
-TOOL:	xrun(64)	22.03-s001: Started on Nov 14, 2023 at 08:32:20 EET
-xrun
-	-imc
-xrun: *W,OPDEPRREN: Command Line Option (-imc) is deprecated. Use (-xmclone) instead.
-xrun: *E,NOMOPT: You have not specified a -R (or a -r <snapshot>) option, nor have you specified a source file for compilation.
-TOOL:	xrun(64)	22.03-s001: Exiting on Nov 14, 2023 at 08:32:20 EET  (total: 00:00:00)
