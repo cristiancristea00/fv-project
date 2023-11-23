@@ -1,8 +1,12 @@
 #!/bin/bash
 
-str=$(pwd)
-rem="/sim/sv_sim"
-export proj_root=${str%$rem}
-echo $proj_root
+project_path=$(pwd)
+sim_path="/sim/sv_sim"
+export proj_root=${project_path%$sim_path}
 
-xrun +UVM_TESTNAME=$1 -seed $2 -gui -f run.args
+gui=''
+if [ "$3" == "gui" ]; then
+    gui='-gui'
+fi
+
+xrun +UVM_TESTNAME=$1 -seed $2 $gui -f run.args

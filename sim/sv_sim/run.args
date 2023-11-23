@@ -1,5 +1,17 @@
-
 -64bit
+-clean
+-access rwc
+-linedebug
+-uvm
+-uvmlinedebug
+-coverage all
+-covoverwrite
+-timescale 1ns/1ps
+-errormax 5
+-allowredefinition
+-top uart_transmitter_tb
+
++UVM_NO_RELNOTES
 
 +incdir+${proj_root}
 +incdir+${proj_root}/source
@@ -10,25 +22,9 @@
 +incdir+${proj_root}/source/sv/transmitter_tb/include
 +incdir+${proj_root}/source/sv/transmitter_tb/include/env
 +incdir+${proj_root}/source/sv/transmitter_tb/include/tests
--sv
--gui
-// RTL compilation files
-${proj_root}/source/v/rtl/*.v
 
-// SV env compilation files
+${proj_root}/source/v/rtl/*.v
 ${proj_root}/source/sv/transmitter_tb/include/env/*.sv
 ${proj_root}/source/sv/transmitter_tb/include/tests/*.sv
 ${proj_root}/source/sv/transmitter_tb/tb/*.sv
-
--access rwc
--linedebug
--clean
--uvm
--uvmlinedebug
--coverage all
--covoverwrite
--timescale 1ns/1ps
--errormax 2
--ALLOWREDEFINITION
--top uart_transmitter_tb
 
