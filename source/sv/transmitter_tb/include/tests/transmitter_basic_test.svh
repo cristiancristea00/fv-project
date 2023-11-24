@@ -16,14 +16,16 @@ class transmitter_basic_test extends transmitter_test_base;
 		super.connect_phase(phase);
 	endfunction: connect_phase
 
-	
+
 	virtual task run_phase(uvm_phase phase);
 		super.run_phase(phase);
 
 		phase.raise_objection(this);
 
-		// TODO: Add test code here
-		#10000;
+		this.system_interface.write_data(8'h55);
+		#1000;
+		this.system_interface.write_data(8'hAA);
+		#1000;
 
 		phase.drop_objection(this);
 	endtask: run_phase

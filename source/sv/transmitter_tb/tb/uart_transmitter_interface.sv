@@ -12,23 +12,40 @@ interface uart_transmitter_interface(input bit clock);
     logic buffer_full;
     logic data_out;
 
-    task nop();
+
+    task pos_nop();
         @(posedge clock);
-    endtask: nop
+    endtask: pos_nop
+
+
+    task neg_nop();
+        @(negedge clock);
+    endtask: neg_nop
+
 
     task init_inputs();
         reset                 = 1;
         data_in               = 0;
         write_enable          = 0;
-        buffer_full_threshold = 0;
+        buffer_full_threshold = 63;
         baudrate_select       = 0;
     endtask: init_inputs
  
+
     task reset_module(int length);
         reset = 0;
-        repeat(length) nop();
+        repeat(length) pos_nop();
         reset = 1;
     endtask: reset_module
+
+
+    task write_data(logic [7:0] data);
+        neg_nop();
+        data_in      = data;
+        write_enable = 1;
+        neg_nop();
+        write_enable = 0;
+    endtask: write_data
    
 
 endinterface
