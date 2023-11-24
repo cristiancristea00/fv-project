@@ -20,7 +20,7 @@ FIFO_BUFFER fifo_buffer(
     .write_enable(data_write_i),    
     .read_enable(read_from_fifo),     
     .data_in(data_i),   
-    .full_tresh(0), 
+    .full_tresh(data_buffer_full_tresh_i),
     .data_out(data_from_fifo),  
     .empty(empty_status_fifo),           
     .full(data_buffer_full_o)            
