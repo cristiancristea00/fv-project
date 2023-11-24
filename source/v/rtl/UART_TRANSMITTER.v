@@ -29,7 +29,7 @@ FIFO_BUFFER fifo_buffer(
 TX_BAUD_GEN tx_baud_gen(
     .clock(clock_i),
     .reset_n(reset_n_i),
-    .baudrate_select(0),
+    .baudrate_select(baudrate_select_i),
     .tx_baud(baud_tick)
     ); 
     
