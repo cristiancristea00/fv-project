@@ -11,7 +11,7 @@ class transmitter_model extends uvm_scoreboard;
    uvm_analysis_imp_tx_bus_ap#(uart_seq_item, transmitter_model) transmitter_tx_bus_ap_h;
    uvm_analysis_imp_input_bus_ap#(transmitter_seq_item, transmitter_model) transmitter_input_bus_ap_h;
    
-   virtual interface sys_itf sys_if;
+   virtual interface uart_transmitter_interface system_interface;
    
 
    bit [7:0] poped_val; 
@@ -31,7 +31,7 @@ class transmitter_model extends uvm_scoreboard;
    
    virtual function void connect_phase(uvm_phase phase);
       super.connect_phase(phase);
-      assert( uvm_config_db#(virtual sys_itf)::get(this, "", "sys_if", sys_if) );
+      assert( uvm_config_db#(virtual uart_transmitter_interface)::get(this, "*", "system_interface", system_interface) );
    endfunction: connect_phase
    
    task run_phase(uvm_phase phase);

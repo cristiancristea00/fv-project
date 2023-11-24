@@ -1,14 +1,16 @@
-module uart_transmitter_dut(sys_itf sys_if);
+module uart_transmitter_dut(uart_transmitter_interface system_interface);
 
     UART_TRANSMITTER uart_transmitter(
+		// Inputs
 		.clock_i                  (clock),
-		.reset_n_i                (sys_if.reset_n_i),
-		.data_i                   (sys_if.data_i),
-		.data_write_i             (sys_if.data_write_i),
-		.data_buffer_full_tresh_i (sys_if.data_buffer_full_tresh_i),
-		.baudrate_select_i        (sys_if.baudrate_select_i),
-		.data_buffer_full_o       (sys_if.data_buffer_full_o),
-		.uart_tx_o                (sys_if.uart_tx_o)
+		.reset_n_i                (system_interface.reset),
+		.data_i                   (system_interface.data_in),
+		.data_write_i             (system_interface.write_enable),
+		.data_buffer_full_tresh_i (system_interface.buffer_full_threshold),
+		.baudrate_select_i        (system_interface.baudrate_select),
+		// Outputs
+		.data_buffer_full_o       (system_interface.buffer_full),
+		.uart_tx_o                (system_interface.data_out)
 	);
 
 

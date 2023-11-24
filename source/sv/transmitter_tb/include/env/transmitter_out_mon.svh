@@ -8,7 +8,7 @@ class transmitter_out_mon extends uvm_monitor;
     
    uart_seq_item data_pkg; 
    
-   virtual sys_itf sys_if;
+   virtual uart_transmitter_interface system_interface;
    
    local event rst_e;
    local event end_of_reset_e;
@@ -28,7 +28,7 @@ class transmitter_out_mon extends uvm_monitor;
    
 	virtual function void connect_phase(uvm_phase phase);
 		super.connect_phase(phase);
-      assert( uvm_config_db#(virtual sys_itf)::get(this, "", "sys_if", sys_if) );
+      assert( uvm_config_db#(virtual uart_transmitter_interface)::get(this, "*", "system_interface", system_interface) );
 	endfunction: connect_phase
    
    

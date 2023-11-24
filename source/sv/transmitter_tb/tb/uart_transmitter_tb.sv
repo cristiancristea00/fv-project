@@ -7,7 +7,6 @@ module uart_transmitter_tb;
 
 	bit clock;
 
-	// Generate clock signal here or as a separate module
 	initial begin
 		clock = 0;
 		forever begin
@@ -15,14 +14,13 @@ module uart_transmitter_tb;
 		end
 	end
 
-	// Connect all the required signals below
-	sys_itf sys_if(clock);
+	uart_transmitter_interface system_interface(clock);
 
-	uart_transmitter_dut dut(sys_if);
+	uart_transmitter_dut dut(system_interface);
 
-	// Upload the interface to the UVM_CONFIG_DB here
+	
 	initial begin
-		uvm_config_db#(virtual sys_itf)::set(null, "*", "sys_if", sys_if);
+		uvm_config_db#(virtual uart_transmitter_interface)::set(null, "*", "system_interface", system_interface);
 		
 		run_test();
 		$stop;
