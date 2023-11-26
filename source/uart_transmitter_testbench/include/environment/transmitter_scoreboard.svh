@@ -5,7 +5,7 @@ class transmitter_scoreboard extends uvm_scoreboard;
    
    // Declare your variables/objects below
    
-   function new(string name= "transmitter_scoreboard", uvm_component parent= null);
+   function new(string name = "transmitter_scoreboard", uvm_component parent = null);
       super.new(name, parent);
    endfunction
    

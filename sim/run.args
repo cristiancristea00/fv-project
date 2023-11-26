@@ -1,9 +1,7 @@
 -64bit
 -clean
 -access rwc
--linedebug
 -uvm
--uvmlinedebug
 -coverage all
 -covoverwrite
 -timescale 1ns/1ps
@@ -12,6 +10,7 @@
 -top uart_transmitter_testbench
 
 +UVM_NO_RELNOTES
++UVM_VERBOSITY=UVM_LOW
 
 +incdir+${proj_root}
 +incdir+${proj_root}/source
@@ -20,11 +19,12 @@
 +incdir+${proj_root}/source/uart_transmitter_testbench
 +incdir+${proj_root}/source/uart_transmitter_testbench/testbench
 +incdir+${proj_root}/source/uart_transmitter_testbench/include
-+incdir+${proj_root}/source/uart_transmitter_testbench/include/env
++incdir+${proj_root}/source/uart_transmitter_testbench/include/environment
 +incdir+${proj_root}/source/uart_transmitter_testbench/include/tests
++incdir+${proj_root}/source/uart_transmitter_testbench/include/helpers
 
 ${proj_root}/source/rtl/*.v
-${proj_root}/source/uart_transmitter_testbench/include/env/*.sv
+${proj_root}/source/uart_transmitter_testbench/include/environment/*.sv
 ${proj_root}/source/uart_transmitter_testbench/include/tests/*.sv
 ${proj_root}/source/uart_transmitter_testbench/testbench/*.sv
 

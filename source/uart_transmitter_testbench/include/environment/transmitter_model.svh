@@ -9,7 +9,7 @@ class transmitter_model extends uvm_scoreboard;
    
    uvm_analysis_imp_tx_sof_ap#(bit, transmitter_model) transmitter_tx_sof_ap_h;
    uvm_analysis_imp_tx_bus_ap#(uart_seq_item, transmitter_model) transmitter_tx_bus_ap_h;
-   uvm_analysis_imp_input_bus_ap#(transmitter_seq_item, transmitter_model) transmitter_input_bus_ap_h;
+   uvm_analysis_imp_input_bus_ap#(transmitter_sequence_item, transmitter_model) transmitter_input_bus_ap_h;
    
    virtual interface uart_transmitter_interface system_interface;
    
@@ -18,7 +18,7 @@ class transmitter_model extends uvm_scoreboard;
    
    //Add cover groups below if you opt not to build transmitter_coverage class
    
-   function new(string name= "transmitter_model", uvm_component parent= null);
+   function new(string name = "transmitter_model", uvm_component parent = null);
       super.new(name, parent);
    endfunction
    
@@ -39,7 +39,7 @@ class transmitter_model extends uvm_scoreboard;
    endtask: run_phase
    
    // Function used to model data getting into the fifo. Also used to check the value of "full_output"
-   virtual function void write_input_bus_ap(transmitter_seq_item transfer);
+   virtual function void write_input_bus_ap(transmitter_sequence_item transfer);
       `uvm_info(get_name(), $sformatf("Input bus ap write triggered"), UVM_LOW )
       
    endfunction: write_input_bus_ap

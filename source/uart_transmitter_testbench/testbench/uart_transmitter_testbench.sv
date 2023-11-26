@@ -1,9 +1,11 @@
-import uvm_pkg::*; 
-
-import test_pkg::*;
-
-  
 module uart_transmitter_testbench;
+
+	import uvm_pkg::*; 
+
+	`include "uvm_macros.svh"
+
+	import tests_pkg::*;
+	
 
 	bit clock;
 
@@ -20,11 +22,14 @@ module uart_transmitter_testbench;
 
 	
 	initial begin
+		`uvm_info("uart_transmitter_testbench", "########## Started testbench ##########", UVM_LOW)
+
 		uvm_config_db#(virtual uart_transmitter_interface)::set(null, "*", "system_interface", system_interface);
+		`uvm_info("uart_transmitter_testbench", "Set system interface in UVM_CONFIG_DB", UVM_LOW)
 		
 		run_test();
 		$stop;
 	end
 
 
-endmodule
+endmodule: uart_transmitter_testbench

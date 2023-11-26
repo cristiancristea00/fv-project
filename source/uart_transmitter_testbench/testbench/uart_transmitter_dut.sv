@@ -4,7 +4,7 @@ module uart_transmitter_dut(uart_transmitter_interface system_interface);
 		// Inputs
 		.clock_i                  (system_interface.clock),
 		.reset_n_i                (system_interface.reset),
-		.data_i                   (system_interface.data_in),
+		.data_i                   (system_interface.data),
 		.data_write_i             (system_interface.write_enable),
 		.data_buffer_full_tresh_i (system_interface.buffer_full_threshold),
 		.baudrate_select_i        (system_interface.baudrate_select),
