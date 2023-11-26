@@ -19,7 +19,7 @@ reg [8:0] buffer_in, buffer_in_next;
 wire control;
 reg [3:0] bit_counter, bit_counter_next;
 
-assign control = &data_in;
+assign control = ^data_in;
 
 always@(posedge clock) begin
     if(~reset_n) begin
