@@ -19,7 +19,7 @@ class transmitter_test_base extends uvm_test;
 		super.connect_phase(phase);
 
 		if (!uvm_config_db#(virtual uart_transmitter_interface)::get(null, "*", "system_interface", system_interface)) begin
-			`uvm_fatal("transmitter_basic_test", "Error in getting system_interface from UVM_CONFIG_DB")
+			`uvm_fatal("transmitter_test_base", "Error in getting system_interface from UVM_CONFIG_DB")
 		end
 	endfunction: connect_phase
 

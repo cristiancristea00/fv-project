@@ -35,6 +35,7 @@ interface uart_transmitter_interface(input bit clock);
     task reset_module(int length);
         reset = 0;
         repeat(length) pos_nop();
+        neg_nop();
         reset = 1;
     endtask: reset_module
 
@@ -48,4 +49,4 @@ interface uart_transmitter_interface(input bit clock);
     endtask: write_data
    
 
-endinterface
+endinterface: uart_transmitter_interface

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 project_path=$(pwd)
-sim_path="/sim/sv_sim"
+sim_path="/sim"
 export proj_root=${project_path%$sim_path}
 
 gui=''

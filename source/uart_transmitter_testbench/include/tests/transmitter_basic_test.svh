@@ -23,9 +23,9 @@ class transmitter_basic_test extends transmitter_test_base;
 		phase.raise_objection(this);
 
 		this.system_interface.write_data(8'h55);
-		#1000;
+		#10000;
 		this.system_interface.write_data(8'hAA);
-		#1000;
+		#10000;
 
 		phase.drop_objection(this);
 	endtask: run_phase

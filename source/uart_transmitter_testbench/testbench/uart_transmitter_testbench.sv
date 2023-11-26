@@ -3,7 +3,7 @@ import uvm_pkg::*;
 import test_pkg::*;
 
   
-module uart_transmitter_tb;
+module uart_transmitter_testbench;
 
 	bit clock;
 

@@ -2,7 +2,7 @@ module uart_transmitter_dut(uart_transmitter_interface system_interface);
 
     UART_TRANSMITTER uart_transmitter(
 		// Inputs
-		.clock_i                  (clock),
+		.clock_i                  (system_interface.clock),
 		.reset_n_i                (system_interface.reset),
 		.data_i                   (system_interface.data_in),
 		.data_write_i             (system_interface.write_enable),
@@ -14,4 +14,4 @@ module uart_transmitter_dut(uart_transmitter_interface system_interface);
 	);
 
 
-endmodule
+endmodule: uart_transmitter_dut
