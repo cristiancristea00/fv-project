@@ -33,7 +33,7 @@ end
  
 //FIFO COUNTER
 always@(posedge clock) begin
-    if(reset_n == 1)
+    if(reset_n == 0)
         fifo_counter <= 0;
     else if (rd_en_mem && !wr_en_mem)
         fifo_counter <= fifo_counter + 1;
