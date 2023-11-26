@@ -52,7 +52,7 @@ always@(*) begin
         DATA:   begin
                     tx_next = buffer_in[0];
                     if(tx_baud) begin
-                        buffer_in_next = buffer_in >> 2;     
+                        buffer_in_next = buffer_in >> 1;     
                     end        
                 end
         STOP:   begin
