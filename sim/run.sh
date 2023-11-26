@@ -9,4 +9,4 @@ if [ "$3" == "gui" ]; then
     gui='-gui'
 fi
 
-xrun +UVM_TESTNAME=$1 -seed $2 $gui -f run.args
+xrun +UVM_TESTNAME=$1 -seed $2 $gui -f run.args -input wave.tcl

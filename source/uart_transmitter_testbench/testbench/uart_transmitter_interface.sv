@@ -27,7 +27,7 @@ interface uart_transmitter_interface(input bit clock);
         reset                 = 1;
         data_in               = 0;
         write_enable          = 0;
-        buffer_full_threshold = 63;
+        buffer_full_threshold = 32;
         baudrate_select       = 0;
     endtask: init_inputs
  
