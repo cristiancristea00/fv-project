@@ -9,22 +9,36 @@ class transmitter_test_base extends uvm_test;
 
 	transmitter_environment environment;
 
+	uvm_table_printer printer;
+
 
 	virtual function void build_phase(uvm_phase phase);
-		`uvm_info("transmitter_test_base", "Starting build phase...", UVM_LOW)
+		uvm_report_info(get_name(), "Starting build phase...", UVM_LOW);
 		super.build_phase(phase);
 
 		environment = transmitter_environment::type_id::create("environment", this);
-		`uvm_info("transmitter_test_base", "Created environment", UVM_LOW)
+		uvm_report_info(get_name(), "Created environment", UVM_LOW);
 
-		`uvm_info("transmitter_test_base", "Finished build phase", UVM_LOW)
+		printer = new();
+		printer.knobs.type_name      = 0;
+		printer.knobs.size           = 0;
+		printer.knobs.indent         = 4;
+		printer.knobs.dec_radix      = "";
+		printer.knobs.unsigned_radix = "";
+		printer.knobs.bin_radix      = "";
+		printer.knobs.hex_radix      = "0x";
+
+		uvm_config_db#(uvm_printer)::set(this, "*", "printer", printer);
+		uvm_report_info(get_name(), "Set printer into UVM Configuration Database", UVM_LOW);
+
+		uvm_report_info(get_name(), "Finished build phase", UVM_LOW);
 	endfunction: build_phase
 
 
 	virtual function void connect_phase(uvm_phase phase);
-		`uvm_info("transmitter_test_base", "Starting connect phase...", UVM_LOW)
+		uvm_report_info(get_name(), "Starting connect phase...", UVM_LOW);
 		super.connect_phase(phase);
-		`uvm_info("transmitter_test_base", "Finished connect phase", UVM_LOW)
+		uvm_report_info(get_name(), "Finished connect phase", UVM_LOW);
 	endfunction: connect_phase
 
 

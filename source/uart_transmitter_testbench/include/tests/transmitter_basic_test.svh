@@ -11,32 +11,32 @@ class transmitter_basic_test extends transmitter_test_base;
 	
 
 	virtual function void build_phase(uvm_phase phase);
-		`uvm_info(get_name(), "Starting build phase...", UVM_LOW)
+		uvm_report_info(get_name(), "Starting build phase...", UVM_LOW);
 		super.build_phase(phase);
 
 		bus_sequence = transmitter_sequence::type_id::create("sequence", this);
-		`uvm_info(get_name(), "Created sequence", UVM_LOW)
+		uvm_report_info(get_name(), "Created sequence", UVM_LOW);
 
-		`uvm_info(get_name(), "Finished build phase", UVM_LOW)
+		uvm_report_info(get_name(), "Finished build phase", UVM_LOW);
 	endfunction: build_phase
 
 
 	virtual function void connect_phase(uvm_phase phase);
-		`uvm_info(get_name(), "Starting connect phase...", UVM_LOW)
+		uvm_report_info(get_name(), "Starting connect phase...", UVM_LOW);
 		super.connect_phase(phase);
-		`uvm_info(get_name(), "Finished connect phase", UVM_LOW)
+		uvm_report_info(get_name(), "Finished connect phase", UVM_LOW);
 	endfunction: connect_phase
 
 
 	virtual task run_phase(uvm_phase phase);
-		`uvm_info(get_name(), "Starting run phase...", UVM_LOW)
+		uvm_report_info(get_name(), "Starting run phase...", UVM_LOW);
 		phase.raise_objection(this);
 
 		bus_sequence.start(environment.agent.sequencer);
 		#10000;
 
 		phase.drop_objection(this);
-		`uvm_info(get_name(), "Finished run phase", UVM_LOW)
+		uvm_report_info(get_name(), "Finished run phase", UVM_LOW);
 	endtask: run_phase
 
 

@@ -7,9 +7,7 @@ class transmitter_sequence extends uvm_sequence#(transmitter_sequence_item);
     endfunction
 
    
-    rand int       number_of_transfers;
-    rand bit [7:0] data;
-    rand bit       write_enable;
+    rand int number_of_transfers;
 
 
     transmitter_sequence_item transfer;
@@ -18,19 +16,17 @@ class transmitter_sequence extends uvm_sequence#(transmitter_sequence_item);
     task body();
         transfer = transmitter_sequence_item::type_id::create("transfer");
 
+        number_of_transfers = 1;
+
         repeat(number_of_transfers) begin
             start_item(transfer);
-            transfer.randomize() with {
-                transfer.write_enable          == write_enable; 
-                transfer.data                  == data;
-                transfer.buffer_full_threshold == 32;
-                transfer.baudrate_select       == 0;
-            };
+            transfer.randomize();
             finish_item(transfer);
         end
 
         start_item(transfer);
         transfer.write_enable = 0;
+        transfer.data         = 0;
         finish_item(transfer);
 
     endtask: body

@@ -11,19 +11,19 @@ class transmitter_environment extends uvm_env;
 
 
 	virtual function void build_phase(uvm_phase phase);
-		`uvm_info("transmitter_environment", "Starting build phase...", UVM_LOW)
+		uvm_report_info(get_name(), "Starting build phase...", UVM_LOW);
 		super.build_phase(phase);
 
 		agent = transmitter_agent::type_id::create("agent", this);
-		`uvm_info("transmitter_environment", "Created agent", UVM_LOW)
+		uvm_report_info(get_name(), "Created agent", UVM_LOW);
 
-		`uvm_info("transmitter_environment", "Finished build phase", UVM_LOW)
+		uvm_report_info(get_name(), "Finished build phase", UVM_LOW);
 	endfunction: build_phase
 
 	virtual function void connect_phase(uvm_phase phase);
-		`uvm_info("transmitter_environment", "Starting connect phase...", UVM_LOW)
+		uvm_report_info(get_name(), "Starting connect phase...", UVM_LOW);
 		super.connect_phase(phase);
-		`uvm_info("transmitter_environment", "Finished connect phase", UVM_LOW)
+		uvm_report_info(get_name(), "Finished connect phase", UVM_LOW);
 	endfunction: connect_phase
 
 

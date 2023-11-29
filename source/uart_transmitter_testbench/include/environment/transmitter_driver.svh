@@ -13,39 +13,46 @@ class transmitter_driver extends uvm_driver#(transmitter_sequence_item);
     local event reset_enabled;
     local event end_of_reset; 
 
+    local uvm_printer printer;
+
 
     virtual function void build_phase(uvm_phase phase);
-        `uvm_info(get_name(), "Starting build phase...", UVM_LOW)
+        uvm_report_info(get_name(), "Starting build phase...", UVM_LOW);
         super.build_phase(phase);
-        `uvm_info(get_name(), "Finished build phase", UVM_LOW)
+        uvm_report_info(get_name(), "Finished build phase", UVM_LOW);
     endfunction: build_phase
 
 
     virtual function void connect_phase(uvm_phase phase);
-        `uvm_info(get_name(), "Starting connect phase...", UVM_LOW)
+        uvm_report_info(get_name(), "Starting connect phase...", UVM_LOW);
         super.connect_phase(phase);
 
         if (!uvm_config_db#(virtual uart_transmitter_interface)::get(null, "*", "system_interface", system_interface)) begin
-			`uvm_fatal(get_name(), "Error in getting system_interface from UVM_CONFIG_DB")
+			`uvm_fatal(get_name(), "Error in getting system interface from the UVM Configuration Database")
 		end
-        `uvm_info(get_name(), "Got system interface from UVM_CONFIG_DB", UVM_LOW)
+        uvm_report_info(get_name(), "Got system interface from UVM Configuration Database", UVM_LOW);
 
-        `uvm_info(get_name(), "Finished connect phase", UVM_LOW)
+        if (!uvm_config_db#(uvm_printer)::get(this, "*", "printer", printer)) begin
+            `uvm_fatal(get_name(), "Error in getting printer from the UVM Configuration Database")
+        end
+        uvm_report_info(get_name(), "Got printer from UVM Configuration Database", UVM_LOW);
+
+        uvm_report_info(get_name(), "Finished connect phase", UVM_LOW);
     endfunction: connect_phase
 
 
     task run_phase(uvm_phase phase);
-        `uvm_info(get_name(), "Starting run phase...", UVM_LOW)
+        uvm_report_info(get_name(), "Starting run phase...", UVM_LOW);
 
-        reset_module();
         reset_inputs();
+        reset_module();
 
         fork
             drive();
             wait_for_reset();
         join_any
 
-        `uvm_info(get_name(), "Finished run phase", UVM_LOW)
+        uvm_report_info(get_name(), "Finished run phase", UVM_LOW);
     endtask: run_phase
 
 
@@ -54,7 +61,8 @@ class transmitter_driver extends uvm_driver#(transmitter_sequence_item);
 
         forever begin
             seq_item_port.get_next_item(transfer);
-            `uvm_info(get_name(), "Got next item from sequencer", UVM_LOW)
+            uvm_report_info(get_name(), "Got next item from sequencer", UVM_LOW);
+            transfer.print(printer);
 
             drive_transfer(transfer);
 
@@ -72,12 +80,12 @@ class transmitter_driver extends uvm_driver#(transmitter_sequence_item);
 
 
     protected task drive_transfer(transmitter_sequence_item transfer);
-        `uvm_info(get_name(), "Starting drive transfer...", UVM_LOW)
+        uvm_report_info(get_name(), "Starting drive transfer...", UVM_LOW);
 
         system_interface.wait_clock_neg();
         system_interface.inputs_drive(transfer.write_enable, transfer.data, transfer.buffer_full_threshold, transfer.baudrate_select);
 
-        `uvm_info(get_name(), "Finished drive transfer", UVM_LOW)
+        uvm_report_info(get_name(), "Finished drive transfer", UVM_LOW);
     endtask: drive_transfer
 
 
@@ -93,19 +101,20 @@ class transmitter_driver extends uvm_driver#(transmitter_sequence_item);
 
 
     protected function void reset_inputs();
-        `uvm_info(get_name(), "Starting inputs reset...", UVM_LOW)
+        uvm_report_info(get_name(), "Starting inputs reset...", UVM_LOW);
 
         system_interface.inputs_reset();
 
-        `uvm_info(get_name(), "Finished inputs reset", UVM_LOW)
+        uvm_report_info(get_name(), "Finished inputs reset", UVM_LOW);
     endfunction: reset_inputs
 
+    
     protected task reset_module();
-        `uvm_info(get_name(), "Starting reset module...", UVM_LOW)
+        uvm_report_info(get_name(), "Starting reset module...", UVM_LOW);
 
         system_interface.reset_module();
 
-        `uvm_info(get_name(), "Finished reset module", UVM_LOW)
+        uvm_report_info(get_name(), "Finished reset module", UVM_LOW);
     endtask: reset_module
 
     

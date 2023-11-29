@@ -7,10 +7,23 @@ class transmitter_sequence_item extends uvm_sequence_item;
     endfunction
 
 
-    rand bit       write_enable;
-    rand bit [7:0] data;
-    rand bit [5:0] buffer_full_threshold;
-    rand bit [1:0] baudrate_select;
+    rand  bit       write_enable;
+    randc bit [7:0] data;
+    rand  bit [5:0] buffer_full_threshold;
+    rand  bit [1:0] baudrate_select;
+
+
+    constraint buffer_full_threshold_constraint {
+        buffer_full_threshold == 32;
+    }
+
+    constraint baudrate_select_constraint {
+        baudrate_select == 0;
+    }
+
+    constraint write_enable_constraint {
+        write_enable == 1;
+    }
 
 
     function void kill();
@@ -19,6 +32,18 @@ class transmitter_sequence_item extends uvm_sequence_item;
         buffer_full_threshold = 0;
         baudrate_select       = 0;
     endfunction: kill
+
+
+    virtual function void do_print(uvm_printer printer);
+        bit [8:0] uart_data = {data, ^data};
+        string uart_data_str = $sformatf("%b", uart_data);
+
+        printer.print_int("baudrate_select", baudrate_select, $bits(baudrate_select), UVM_DEC, ".", "dec");
+        printer.print_int("buffer_full_threshold", buffer_full_threshold, $bits(buffer_full_threshold), UVM_DEC, ".", "dec");
+        printer.print_int("data", data, $bits(data), UVM_HEX, ".", "hex");
+        printer.print_string("uart_data", uart_data_str);
+        printer.print_string("write_enable", write_enable ? "True" : "False");
+    endfunction: do_print
 
 
 endclass: transmitter_sequence_item

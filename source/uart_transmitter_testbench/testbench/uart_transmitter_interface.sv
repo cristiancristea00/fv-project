@@ -1,7 +1,8 @@
 
-interface uart_transmitter_interface(input bit clock);
+interface uart_transmitter_interface;
 
     // Inputs
+    bit         clock;
     logic       reset;
     logic       write_enable;
     logic [7:0] data;

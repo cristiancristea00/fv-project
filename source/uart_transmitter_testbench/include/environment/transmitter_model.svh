@@ -40,18 +40,18 @@ class transmitter_model extends uvm_scoreboard;
    
    // Function used to model data getting into the fifo. Also used to check the value of "full_output"
    virtual function void write_input_bus_ap(transmitter_sequence_item transfer);
-      `uvm_info(get_name(), $sformatf("Input bus ap write triggered"), UVM_LOW )
+      uvm_report_info(get_name(), $sformatf("Input bus ap write triggered"), UVM_LOW );
       
    endfunction: write_input_bus_ap
    
    // Function used to model data getting of the FIFO. Also used to check the corecteness of parity bit of UART_DATA_PKG
    virtual function void write_tx_bus_ap(uart_seq_item transfer);
-      `uvm_info(get_name(), $sformatf("End of TX frame ap triggered"), UVM_LOW)
+      uvm_report_info(get_name(), $sformatf("End of TX frame ap triggered"), UVM_LOW);
    endfunction: write_tx_bus_ap
    
    // Function used as hook for things that should happen at the start of UART_DATA_PKG
    virtual function void write_tx_sof_ap(bit start);
-      `uvm_info(get_name(), $sformatf("TX sof ap triggered"), UVM_LOW)
+      uvm_report_info(get_name(), $sformatf("TX sof ap triggered"), UVM_LOW);
    endfunction: write_tx_sof_ap
    
 
