@@ -4,6 +4,7 @@ package environment_pkg;
 	
 	`include "uvm_macros.svh"
 
+	`include "uart_sequence_item.svh"
 	`include "transmitter_sequence_item.svh"
 	`include "transmitter_sequence.svh"
 	`include "transmitter_driver.svh"

@@ -2,10 +2,10 @@ class transmitter_output_monitor extends uvm_monitor;
 	
     `uvm_component_utils(transmitter_output_monitor)
 
-    // uvm_analysis_port#(uart_seq_item) mon_ap;
+    // uvm_analysis_port#(uart_sequence_item) mon_ap;
     // uvm_analysis_port#(bit) start_of_frame_ap;
 
-    // uart_seq_item data_pkg; 
+    // uart_sequence_item data_pkg; 
 
     virtual uart_transmitter_interface system_interface;
 
@@ -21,7 +21,7 @@ class transmitter_output_monitor extends uvm_monitor;
         super.build_phase(phase);
         // mon_ap= new("mon_ap", this);
         // start_of_frame_ap= new("start_of_frame_ap", this);
-        // data_pkg= uart_seq_item::type_id::create("data_pkg", this);
+        // data_pkg= uart_sequence_item::type_id::create("data_pkg", this);
     endfunction: build_phase
 
 

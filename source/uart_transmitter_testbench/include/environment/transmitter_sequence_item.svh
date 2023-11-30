@@ -29,7 +29,7 @@ class transmitter_sequence_item extends uvm_sequence_item;
     function void kill();
         write_enable          = 0;
         data                  = 0;
-        buffer_full_threshold = 0;
+        buffer_full_threshold = 32;
         baudrate_select       = 0;
     endfunction: kill
 

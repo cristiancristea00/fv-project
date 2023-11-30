@@ -34,6 +34,21 @@ interface uart_transmitter_interface;
     endtask: wait_reset_clear
 
 
+    task wait_until_reset_low();
+        wait (reset == 0);
+    endtask: wait_until_reset_low
+
+
+    task wait_until_reset_high();
+        wait (reset == 1);
+    endtask: wait_until_reset_high
+
+
+    task wait_for_bus_change();
+        @(write_enable or data or buffer_full_threshold or baudrate_select);
+    endtask: wait_for_bus_change
+
+
     task reset_module(int length = 5);
         reset <= 0;
         repeat(length) wait_clock_pos();
@@ -42,8 +57,13 @@ interface uart_transmitter_interface;
     endtask: reset_module
 
 
-    function void inputs_reset();
-        reset                 = 1;
+    function void inputs_init();
+        inputs_reset();
+        reset = 1;
+    endfunction: inputs_init
+
+
+     function void inputs_reset();
         data                  = 0;
         write_enable          = 0;
         buffer_full_threshold = 0;

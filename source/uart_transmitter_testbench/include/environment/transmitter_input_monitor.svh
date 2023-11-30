@@ -2,38 +2,87 @@ class transmitter_input_monitor extends uvm_monitor;
 
 	`uvm_component_utils(transmitter_input_monitor)
 
-	// uvm_analysis_port#(transmitter_sequence_item) mon_ap;
-
-
-	virtual uart_transmitter_interface system_interface;
-
-	local event rst_e;
-	local event end_of_rst_e;
 
 	function new(string name = "transmitter_input_monitor", uvm_component parent = null);
 		super.new(name, parent);
 	endfunction
 
+
+	uvm_analysis_port#(transmitter_sequence_item) input_monitor_ap;
+
+	virtual uart_transmitter_interface system_interface;
+
+	local uvm_printer printer;
+
+
 	virtual function void build_phase(uvm_phase phase);
+		uvm_report_info(get_name(), "Starting build phase...", UVM_LOW);
 		super.build_phase(phase);
-		// mon_ap= new("mon_ap", this);
-		
+
+		input_monitor_ap = new("input_monitor_ap", this);
+		uvm_report_info(get_name(), "Created input monitor analysis port", UVM_LOW);
+
+		uvm_report_info(get_name(), "Finished build phase", UVM_LOW);
 	endfunction: build_phase
 
 	virtual function void connect_phase(uvm_phase phase);
+		uvm_report_info(get_name(), "Starting connect phase...", UVM_LOW);
 		super.connect_phase(phase);
-		assert( uvm_config_db#(virtual uart_transmitter_interface)::get(this, "*", "system_interface", system_interface) );
+
+		if (!uvm_config_db#(virtual uart_transmitter_interface)::get(null, "*", "system_interface", system_interface)) begin
+			`uvm_fatal(get_name(), "Error in getting system interface from the UVM Configuration Database")
+		end
+        uvm_report_info(get_name(), "Got system interface from UVM Configuration Database", UVM_LOW);
+
+		if (!uvm_config_db#(uvm_printer)::get(this, "*", "printer", printer)) begin
+            `uvm_fatal(get_name(), "Error in getting printer from the UVM Configuration Database")
+        end
+        uvm_report_info(get_name(), "Got printer from UVM Configuration Database", UVM_LOW);
+
+		uvm_report_info(get_name(), "Finished connect phase", UVM_LOW);
 	endfunction: connect_phase
 
+
 	task run_phase(uvm_phase phase);
-		
+		uvm_report_info(get_name(), "Starting run phase...", UVM_LOW);
+
+		uvm_report_info(get_name(), "Started input monitoring thread", UVM_LOW);
+		monitor_input();
+
+		uvm_report_info(get_name(), "Finished run phase", UVM_LOW);
 	endtask: run_phase
 
-	protected task recover_data();
+
+	protected task monitor_input();
+		transmitter_sequence_item input_transfer;
+
+		forever begin
+			system_interface.wait_for_bus_change();
+			system_interface.wait_clock_pos();
+
+			if (system_interface.reset == 0) begin
+				system_interface.wait_until_reset_high();
+				continue;
+			end
+
+			input_transfer = get_transfer();
+			uvm_report_info(get_name(), "Got new transfer on the input bus", UVM_LOW);
+			input_transfer.print(printer);
+			input_monitor_ap.write(input_transfer);
+		end
+	endtask: monitor_input
 
 
+	protected function transmitter_sequence_item get_transfer();
+		transmitter_sequence_item input_transfer = transmitter_sequence_item::type_id::create("input_transfer");
 
-	endtask: recover_data
+		input_transfer.data                  = system_interface.data;
+		input_transfer.write_enable          = system_interface.write_enable;
+		input_transfer.buffer_full_threshold = system_interface.buffer_full_threshold;
+		input_transfer.baudrate_select       = system_interface.baudrate_select;
+
+		return input_transfer;
+	endfunction: get_transfer
 
 	
 endclass: transmitter_input_monitor

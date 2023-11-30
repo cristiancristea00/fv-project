@@ -9,9 +9,7 @@ class transmitter_driver extends uvm_driver#(transmitter_sequence_item);
 
     virtual uart_transmitter_interface system_interface;
 
-
-    local event reset_enabled;
-    local event end_of_reset; 
+    transmitter_sequence_item transfer;
 
     local uvm_printer printer;
 
@@ -44,21 +42,26 @@ class transmitter_driver extends uvm_driver#(transmitter_sequence_item);
     task run_phase(uvm_phase phase);
         uvm_report_info(get_name(), "Starting run phase...", UVM_LOW);
 
-        reset_inputs();
+        init_inputs();
         reset_module();
 
         fork
-            drive();
-            wait_for_reset();
-        join_any
+            begin : reset_monitor_thread
+                uvm_report_info(get_name(), "Started reset monitoring thread", UVM_LOW);
+                wait_for_reset();
+            end
+
+            begin : drive_thread
+                uvm_report_info(get_name(), "Started drive thread", UVM_LOW);
+                drive();
+            end
+        join
 
         uvm_report_info(get_name(), "Finished run phase", UVM_LOW);
     endtask: run_phase
 
 
     protected task drive();
-        transmitter_sequence_item transfer;
-
         forever begin
             seq_item_port.get_next_item(transfer);
             uvm_report_info(get_name(), "Got next item from sequencer", UVM_LOW);
@@ -68,13 +71,7 @@ class transmitter_driver extends uvm_driver#(transmitter_sequence_item);
 
             seq_item_port.item_done();
 
-            if (reset_enabled.triggered) begin
-                transfer.kill();
-
-                reset_inputs();
-
-                wait(end_of_reset.triggered);
-            end
+            system_interface.wait_until_reset_high();
         end
     endtask: drive
 
@@ -92,12 +89,19 @@ class transmitter_driver extends uvm_driver#(transmitter_sequence_item);
     protected task wait_for_reset();
         forever begin
             system_interface.wait_reset_trigger();
-            -> reset_enabled;
-
-            system_interface.wait_reset_clear();
-            -> end_of_reset;
+            transfer.kill();
+            reset_inputs();
         end
     endtask: wait_for_reset
+
+
+    protected function void init_inputs();
+        uvm_report_info(get_name(), "Starting inputs init...", UVM_LOW);
+
+        system_interface.inputs_init();
+
+        uvm_report_info(get_name(), "Finished inputs init", UVM_LOW);
+    endfunction: init_inputs
 
 
     protected function void reset_inputs();

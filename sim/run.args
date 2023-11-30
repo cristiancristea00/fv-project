@@ -5,7 +5,6 @@
 -coverage all
 -covoverwrite
 -timescale 1ns/1ps
--errormax 5
 -allowredefinition
 -top uart_transmitter_testbench
 
