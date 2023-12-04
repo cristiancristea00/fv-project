@@ -15,22 +15,22 @@ interface uart_transmitter_interface;
 
 
     task wait_clock_pos();
-        @(posedge clock);
+        @ (posedge clock);
     endtask: wait_clock_pos
 
 
     task wait_clock_neg();
-        @(negedge clock);
+        @ (negedge clock);
     endtask: wait_clock_neg
 
 
     task wait_reset_trigger();
-        @(negedge reset);
+        @ (negedge reset);
     endtask: wait_reset_trigger
 
 
     task wait_reset_clear();
-        @(posedge reset);
+        @ (posedge reset);
     endtask: wait_reset_clear
 
 
@@ -45,8 +45,13 @@ interface uart_transmitter_interface;
 
 
     task wait_for_bus_change();
-        @(write_enable or data or buffer_full_threshold or baudrate_select);
+        @ (write_enable or data or buffer_full_threshold or baudrate_select);
     endtask: wait_for_bus_change
+
+
+    task wait_for_start_of_frame();
+        @ (negedge data_out);
+    endtask: wait_for_start_of_frame
 
 
     task reset_module(int length = 5);
