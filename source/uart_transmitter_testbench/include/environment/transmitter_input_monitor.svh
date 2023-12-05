@@ -66,6 +66,11 @@ class transmitter_input_monitor extends uvm_monitor;
 			end
 
 			input_transfer = get_transfer();
+
+			if (input_transfer.write_enable == 0 && input_transfer.data == 0) begin
+				continue;
+			end
+
 			uvm_report_info(get_name(), "Got new transfer on the input bus", UVM_LOW);
 			input_transfer.print(printer);
 			input_monitor_ap.write(input_transfer);

@@ -64,8 +64,6 @@ class transmitter_driver extends uvm_driver#(transmitter_sequence_item);
     protected task drive();
         forever begin
             seq_item_port.get_next_item(transfer);
-            uvm_report_info(get_name(), "Got next item from sequencer", UVM_LOW);
-            transfer.print(printer);
 
             drive_transfer(transfer);
 
