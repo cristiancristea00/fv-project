@@ -16,40 +16,40 @@ class transmitter_input_monitor extends uvm_monitor;
 
 
 	virtual function void build_phase(uvm_phase phase);
-		uvm_report_info(get_name(), "Starting build phase...", UVM_LOW);
+		uvm_report_info(get_name(), "Starting build phase...", UVM_DEBUG);
 		super.build_phase(phase);
 
 		input_monitor_ap = new("input_monitor_ap", this);
-		uvm_report_info(get_name(), "Created input monitor analysis port", UVM_LOW);
+		uvm_report_info(get_name(), "Created input monitor analysis port", UVM_DEBUG);
 
-		uvm_report_info(get_name(), "Finished build phase", UVM_LOW);
+		uvm_report_info(get_name(), "Finished build phase", UVM_DEBUG);
 	endfunction: build_phase
 
 	virtual function void connect_phase(uvm_phase phase);
-		uvm_report_info(get_name(), "Starting connect phase...", UVM_LOW);
+		uvm_report_info(get_name(), "Starting connect phase...", UVM_DEBUG);
 		super.connect_phase(phase);
 
 		if (!uvm_config_db#(virtual uart_transmitter_interface)::get(null, "*", "system_interface", system_interface)) begin
 			`uvm_fatal(get_name(), "Error in getting system interface from the UVM Configuration Database")
 		end
-        uvm_report_info(get_name(), "Got system interface from UVM Configuration Database", UVM_LOW);
+        uvm_report_info(get_name(), "Got system interface from UVM Configuration Database", UVM_DEBUG);
 
 		if (!uvm_config_db#(uvm_printer)::get(this, "*", "printer", printer)) begin
             `uvm_fatal(get_name(), "Error in getting printer from the UVM Configuration Database")
         end
-        uvm_report_info(get_name(), "Got printer from UVM Configuration Database", UVM_LOW);
+        uvm_report_info(get_name(), "Got printer from UVM Configuration Database", UVM_DEBUG);
 
-		uvm_report_info(get_name(), "Finished connect phase", UVM_LOW);
+		uvm_report_info(get_name(), "Finished connect phase", UVM_DEBUG);
 	endfunction: connect_phase
 
 
 	task run_phase(uvm_phase phase);
-		uvm_report_info(get_name(), "Starting run phase...", UVM_LOW);
+		uvm_report_info(get_name(), "Starting run phase...", UVM_DEBUG);
 
-		uvm_report_info(get_name(), "Started input monitoring thread", UVM_LOW);
+		uvm_report_info(get_name(), "Started input monitoring thread", UVM_DEBUG);
 		monitor_input();
 
-		uvm_report_info(get_name(), "Finished run phase", UVM_LOW);
+		uvm_report_info(get_name(), "Finished run phase", UVM_DEBUG);
 	endtask: run_phase
 
 
@@ -71,7 +71,7 @@ class transmitter_input_monitor extends uvm_monitor;
 				continue;
 			end
 
-			uvm_report_info(get_name(), "Got new transfer on the input bus", UVM_LOW);
+			uvm_report_info(get_name(), "Got new transfer on the input bus", UVM_DEBUG);
 			input_transfer.print(printer);
 			input_monitor_ap.write(input_transfer);
 		end

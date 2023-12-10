@@ -39,19 +39,19 @@ class transmitter_sequence_item extends uvm_sequence_item;
     endfunction: do_print
 
 
-    local function string get_data_str();
+    function string get_data_str();
         string data_str = $sformatf("%h", data);
 
         return $sformatf("0x%s", data_str.toupper());
     endfunction: get_data_str
 
 
-    local function string get_uart_data_str();
+    function string get_uart_data_str();
         return $sformatf("%b", get_uart_data());
     endfunction: get_uart_data_str
 
 
-    local function bit[8:0] get_uart_data();
+    function bit[8:0] get_uart_data();
         return {data[0], data[1], data[2], data[3], data[4], data[5], data[6], data[7], ^data};
     endfunction: get_uart_data
 

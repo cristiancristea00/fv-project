@@ -19,34 +19,34 @@ class uart_sequence_item extends uvm_sequence_item;
     endfunction: do_print
 
 
-    local function string get_initial_data_str();
+    function string get_initial_data_str();
         return $sformatf("%b", get_initial_data());
     endfunction: get_initial_data_str
 
 
-    local function string get_data_str();
+    function string get_data_str();
         string data_str = $sformatf("%h", get_data());
 
         return $sformatf("0x%s", data_str.toupper());
     endfunction: get_data_str
 
 
-    local function logic [8:0] get_initial_data();
+    function logic [8:0] get_initial_data();
         return {uart_data[1], uart_data[2], uart_data[3], uart_data[4], uart_data[5], uart_data[6], uart_data[7], uart_data[8], uart_data[9]};
     endfunction: get_initial_data
 
 
-    local function logic [7:0] get_data();
+    function logic [7:0] get_data();
         return uart_data[8:1];
     endfunction: get_data
 
 
-    local function logic get_start_bit();
+    function logic get_start_bit();
         return uart_data[0];
     endfunction: get_start_bit
 
 
-    local function logic get_stop_bit();
+    function logic get_stop_bit();
         return uart_data[10];
     endfunction: get_stop_bit
 

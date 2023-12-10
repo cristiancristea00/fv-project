@@ -14,33 +14,33 @@ class transmitter_agent extends uvm_agent;
 
 
     function void build_phase(uvm_phase phase);
-        uvm_report_info(get_name(), "Starting build phase...", UVM_LOW);
+        uvm_report_info(get_name(), "Starting build phase...", UVM_DEBUG);
         super.build_phase(phase);
 
         sequencer = transmitter_sequencer::type_id::create("sequencer", this);
-        uvm_report_info(get_name(), "Created sequencer", UVM_LOW);
+        uvm_report_info(get_name(), "Created sequencer", UVM_DEBUG);
 
         driver = transmitter_driver::type_id::create("driver", this);
-        uvm_report_info(get_name(), "Created driver", UVM_LOW);
+        uvm_report_info(get_name(), "Created driver", UVM_DEBUG);
 
         input_monitor = transmitter_input_monitor::type_id::create("input_monitor", this);
-        uvm_report_info(get_name(), "Created input monitor", UVM_LOW);
+        uvm_report_info(get_name(), "Created input monitor", UVM_DEBUG);
 
         output_monitor = transmitter_output_monitor::type_id::create("output_monitor", this);
-        uvm_report_info(get_name(), "Created output monitor", UVM_LOW);
+        uvm_report_info(get_name(), "Created output monitor", UVM_DEBUG);
 
-        uvm_report_info(get_name(), "Finished build phase", UVM_LOW);
+        uvm_report_info(get_name(), "Finished build phase", UVM_DEBUG);
     endfunction : build_phase
 
 
     function void connect_phase(uvm_phase phase);
-        uvm_report_info(get_name(), "Starting connect phase...", UVM_LOW);
+        uvm_report_info(get_name(), "Starting connect phase...", UVM_DEBUG);
         super.connect_phase(phase);
 
         driver.seq_item_port.connect(sequencer.seq_item_export);
-        uvm_report_info(get_name(), "Connected driver to sequencer", UVM_LOW);
+        uvm_report_info(get_name(), "Connected driver to sequencer", UVM_DEBUG);
 
-        uvm_report_info(get_name(), "Finished connect phase", UVM_LOW);
+        uvm_report_info(get_name(), "Finished connect phase", UVM_DEBUG);
     endfunction : connect_phase
 
  
