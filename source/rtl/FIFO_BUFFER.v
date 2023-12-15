@@ -12,7 +12,7 @@ module FIFO_BUFFER(
  
  wire rd_en_mem, wr_en_mem;
  reg [4:0] write_ptr_reg, read_ptr_reg;
- reg [4:0] fifo_counter;
+ reg [5:0] fifo_counter;
  reg [7:0] memory [0:31];
  
 //WRITE POINTER	
