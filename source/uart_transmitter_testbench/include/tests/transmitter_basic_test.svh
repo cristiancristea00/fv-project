@@ -33,7 +33,7 @@ class transmitter_basic_test extends transmitter_test_base;
 		phase.raise_objection(this);
 
 		bus_sequence.start(environment.agent.sequencer);
-		#100000;
+		#200000;
 
 		phase.drop_objection(this);
 		uvm_report_info(get_name(), "Finished run phase", UVM_DEBUG);

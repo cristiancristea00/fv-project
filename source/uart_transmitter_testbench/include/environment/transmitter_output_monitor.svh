@@ -62,7 +62,7 @@ class transmitter_output_monitor extends uvm_monitor;
 
             get_transfer(output_transfer);
             uvm_report_info(get_name(), "Got new transfer on the output bus", UVM_DEBUG);
-            output_transfer.print(printer);
+            print_transfer(output_transfer, printer);
             output_monitor_ap.write(output_transfer);
         end
     endtask: monitor_output
@@ -96,10 +96,10 @@ class transmitter_output_monitor extends uvm_monitor;
 
     local function int get_baud_in_clocks();
         case (system_interface.baudrate_select)
-            2'b00: return 16;
-            2'b01: return 32;
-            2'b10: return 64;
-            2'b11: return 128;
+            BAUD_CLK16 : return 16;
+            BAUD_CLK32 : return 32;
+            BAUD_CLK64 : return 64;
+            BAUD_CLK128: return 128;
         endcase
     endfunction: get_baud_in_clocks
 

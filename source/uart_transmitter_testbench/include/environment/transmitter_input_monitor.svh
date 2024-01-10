@@ -67,12 +67,12 @@ class transmitter_input_monitor extends uvm_monitor;
 
 			input_transfer = get_transfer();
 
-			if (input_transfer.write_enable == 0 && input_transfer.data == 0) begin
+			if (input_transfer.write_enable == 0 || system_interface.buffer_full == 1) begin
 				continue;
 			end
 
 			uvm_report_info(get_name(), "Got new transfer on the input bus", UVM_DEBUG);
-			input_transfer.print(printer);
+			print_transfer(input_transfer, printer);
 			input_monitor_ap.write(input_transfer);
 		end
 	endtask: monitor_input

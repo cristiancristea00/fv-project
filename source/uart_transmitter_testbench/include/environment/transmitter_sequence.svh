@@ -7,7 +7,7 @@ class transmitter_sequence extends uvm_sequence#(transmitter_sequence_item);
     endfunction
 
    
-    rand int number_of_transfers;
+    int number_of_transfers = 50000;
 
 
     transmitter_sequence_item transfer;
@@ -15,8 +15,6 @@ class transmitter_sequence extends uvm_sequence#(transmitter_sequence_item);
 
     task body();
         transfer = transmitter_sequence_item::type_id::create("transfer");
-
-        number_of_transfers = 30;
 
         repeat(number_of_transfers) begin
             start_item(transfer);
