@@ -39,6 +39,7 @@ class transmitter_scoreboard extends uvm_scoreboard;
 
 
     virtual function void report_phase(uvm_phase phase);
+        uvm_report_info(get_name(), "Starting report phase...", UVM_DEBUG);
         super.report_phase(phase);
 
         if (fail_count == 0) begin
@@ -47,6 +48,8 @@ class transmitter_scoreboard extends uvm_scoreboard;
         else begin
             uvm_report_error(get_name(), $sformatf("########## FAILED: %0d errors detected ##########", fail_count));
         end
+
+        uvm_report_info(get_name(), "Finished report phase", UVM_DEBUG);
     endfunction: report_phase
 
 
@@ -63,11 +66,11 @@ class transmitter_scoreboard extends uvm_scoreboard;
             transmitter_sequence_item expected = buffer.pop_front();
 
             if (transfer.get_initial_data() == expected.get_uart_data()) begin
-            uvm_report_info(get_name(), $sformatf("PASSED: Expected %s, got %s", expected.get_data_str(), transfer.get_data_str()), UVM_LOW);
+                uvm_report_info(get_name(), $sformatf("PASSED: Expected %s, got %s", expected.get_data_str(), transfer.get_data_str()), UVM_LOW);
             end
             else begin
-            uvm_report_error(get_name(), $sformatf("FAILED: Expected %s, got %s", expected.get_data_str(), transfer.get_data_str()));
-            ++fail_count;
+                uvm_report_error(get_name(), $sformatf("FAILED: Expected %s, got %s", expected.get_data_str(), transfer.get_data_str()));
+                ++fail_count;
             end
         end
     endfunction: write_output_bus_ap

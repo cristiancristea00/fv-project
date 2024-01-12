@@ -25,6 +25,7 @@ class transmitter_input_monitor extends uvm_monitor;
 		uvm_report_info(get_name(), "Finished build phase", UVM_DEBUG);
 	endfunction: build_phase
 
+
 	virtual function void connect_phase(uvm_phase phase);
 		uvm_report_info(get_name(), "Starting connect phase...", UVM_DEBUG);
 		super.connect_phase(phase);

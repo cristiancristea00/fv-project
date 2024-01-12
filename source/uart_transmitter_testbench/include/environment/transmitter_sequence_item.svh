@@ -21,10 +21,6 @@ class transmitter_sequence_item extends uvm_sequence_item;
         baudrate_select == BAUD_CLK16;
     }
 
-    constraint write_enable_constraint {
-        write_enable == 1;
-    }
-
 
     function void kill();
         write_enable          = 0;

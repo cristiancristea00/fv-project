@@ -4,6 +4,7 @@
 -uvm
 -coverage all
 -covoverwrite
+-covfile cov.ccf
 -timescale 1ns/1ps
 -allowredefinition
 -top uart_transmitter_testbench

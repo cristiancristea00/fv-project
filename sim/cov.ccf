@@ -1,0 +1,3 @@
+select_functional
+set_covergroup -per_instance_default_one
+set_covergroup -new_instance_reporting

@@ -40,5 +40,4 @@ class transmitter_basic_test extends transmitter_test_base;
 	endtask: run_phase
 
 
-
 endclass: transmitter_basic_test
