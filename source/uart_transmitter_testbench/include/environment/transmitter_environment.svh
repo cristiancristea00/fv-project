@@ -12,6 +12,7 @@ class transmitter_environment extends uvm_env;
 	transmitter_scoreboard scoreboard;
 
 	transmitter_input_coverage input_coverage;
+	transmitter_output_coverage output_coverage;
 
 
 	virtual function void build_phase(uvm_phase phase);
@@ -26,6 +27,9 @@ class transmitter_environment extends uvm_env;
 
 		input_coverage = transmitter_input_coverage::type_id::create("input_coverage", this);
 		uvm_report_info(get_name(), "Created input coverage", UVM_DEBUG);
+
+		output_coverage = transmitter_output_coverage::type_id::create("output_coverage", this);
+		uvm_report_info(get_name(), "Created output coverage", UVM_DEBUG);
 
 		uvm_report_info(get_name(), "Finished build phase", UVM_DEBUG);
 	endfunction: build_phase
@@ -43,6 +47,9 @@ class transmitter_environment extends uvm_env;
 
 		agent.output_monitor.output_monitor_ap.connect(scoreboard.transmitter_output_bus_ap);
 		uvm_report_info(get_name(), "Connected output monitor to scoreboard", UVM_DEBUG);
+
+		agent.output_monitor.output_monitor_ap.connect(output_coverage.analysis_export);
+		uvm_report_info(get_name(), "Connected output monitor to output coverage", UVM_DEBUG);
 
 		uvm_report_info(get_name(), "Finished connect phase", UVM_DEBUG);
 	endfunction: connect_phase

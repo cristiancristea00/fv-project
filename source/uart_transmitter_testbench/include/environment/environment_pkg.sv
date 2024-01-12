@@ -13,6 +13,7 @@ package environment_pkg;
 	`include "transmitter_input_monitor.svh"
 	`include "transmitter_output_monitor.svh"
 	`include "transmitter_input_coverage.svh"
+	`include "transmitter_output_coverage.svh"
 	`include "transmitter_sequencer.svh"
 	`include "transmitter_agent.svh"
 	`include "transmitter_scoreboard.svh"
