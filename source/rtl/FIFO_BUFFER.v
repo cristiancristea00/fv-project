@@ -11,6 +11,7 @@ module FIFO_BUFFER(
  );
  
  wire rd_en_mem, wr_en_mem;
+ wire [5:0] full_tresh_limited;
  reg [4:0] write_ptr_reg, read_ptr_reg;
  reg [5:0] fifo_counter;
  reg [7:0] memory [0:31];
@@ -44,9 +45,12 @@ always@(posedge clock) begin
 //READ_ENABLE AND WRITE_ENABLE
 assign wr_en_mem = write_enable & ~full;
 assign rd_en_mem = read_enable & ~empty;
+
+//FULL TRESHOLD LIMIT
+assign full_tresh_limited = (full_tresh > 6'd32) ? 6'd32 : full_tresh;
  
 //FULL AND EMPTY
-assign full  = (fifo_counter == full_tresh);
+assign full  = (fifo_counter == full_tresh_limited);
 assign empty = (fifo_counter == 0);
 
 always@(posedge clock) begin
