@@ -7,26 +7,15 @@ class transmitter_sequence_item extends uvm_sequence_item;
     endfunction
 
 
-    rand  bit               write_enable;
-    randc bit [7:0]         data;
-    rand  bit [5:0]         buffer_full_threshold;
-    rand  baudrate_select_t baudrate_select;
-
-
-    constraint buffer_full_threshold_constraint {
-        buffer_full_threshold == 32;
-    }
-
-    constraint baudrate_select_constraint {
-        baudrate_select == BAUD_CLK16;
-    }
+    rand  bit              write_enable;
+    randc bit        [7:0] data;
+    bit              [5:0] buffer_full_threshold;
+    baudrate_select_t      baudrate_select;
 
 
     function void kill();
-        write_enable          = 0;
-        data                  = 0;
-        buffer_full_threshold = 32;
-        baudrate_select       = BAUD_CLK16;
+        write_enable = 0;
+        data         = 0;
     endfunction: kill
 
 

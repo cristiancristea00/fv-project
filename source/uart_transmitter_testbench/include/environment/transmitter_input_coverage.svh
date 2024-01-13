@@ -23,6 +23,27 @@ class transmitter_input_coverage extends uvm_subscriber#(transmitter_sequence_it
             wildcard bins bit1_2 = {8'b????_?1??};
             wildcard bins bit1_1 = {8'b????_??1?};
             wildcard bins bit1_0 = {8'b????_???1};
+
+            bins data_0x00 = {8'h00};
+            bins data_0x55 = {8'h55};
+            bins data_0xAA = {8'hAA};
+            bins data_0xFF = {8'hFF};
+        }
+
+        write_enable : coverpoint transfer.write_enable {
+            bins write_enable_0 = {1'b0};
+            bins write_enable_1 = {1'b1};
+        }
+
+        baudrate_select : coverpoint transfer.baudrate_select {
+            bins baudrate_select_CLK16  = {BAUD_CLK16};
+            bins baudrate_select_CLK32  = {BAUD_CLK32};
+            bins baudrate_select_CLK64  = {BAUD_CLK64};
+            bins baudrate_select_CLK128 = {BAUD_CLK128};
+        }
+
+        buffer_full_threshold : coverpoint transfer.buffer_full_threshold {
+            bins buffer_full_threshold_all = {[6'd0 : 6'd63]};
         }
 
     endgroup: input_covergroup

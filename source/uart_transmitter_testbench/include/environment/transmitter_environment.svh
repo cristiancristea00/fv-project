@@ -14,6 +14,8 @@ class transmitter_environment extends uvm_env;
 	transmitter_input_coverage input_coverage;
 	transmitter_output_coverage output_coverage;
 
+	uvm_table_printer printer;
+
 
 	virtual function void build_phase(uvm_phase phase);
 		uvm_report_info(get_name(), "Starting build phase...", UVM_DEBUG);
@@ -30,6 +32,18 @@ class transmitter_environment extends uvm_env;
 
 		output_coverage = transmitter_output_coverage::type_id::create("output_coverage", this);
 		uvm_report_info(get_name(), "Created output coverage", UVM_DEBUG);
+
+		printer = new();
+		printer.knobs.type_name      = 0;
+		printer.knobs.size           = 0;
+		printer.knobs.indent         = 4;
+		printer.knobs.dec_radix      = "";
+		printer.knobs.unsigned_radix = "";
+		printer.knobs.bin_radix      = "";
+		printer.knobs.hex_radix      = "0x";
+
+		uvm_config_db#(uvm_printer)::set(this, "*", "printer", printer);
+		uvm_report_info(get_name(), "Set printer into UVM Configuration Database", UVM_DEBUG);
 
 		uvm_report_info(get_name(), "Finished build phase", UVM_DEBUG);
 	endfunction: build_phase

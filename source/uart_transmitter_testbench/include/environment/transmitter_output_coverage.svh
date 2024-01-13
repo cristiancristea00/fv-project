@@ -23,6 +23,11 @@ class transmitter_output_coverage extends uvm_subscriber#(uart_sequence_item);
             wildcard bins bit1_2 = {8'b????_?1??};
             wildcard bins bit1_1 = {8'b????_??1?};
             wildcard bins bit1_0 = {8'b????_???1};
+
+            bins data_0x00 = {8'h00};
+            bins data_0x55 = {8'h55};
+            bins data_0xAA = {8'hAA};
+            bins data_0xFF = {8'hFF};
         }
 
     endgroup: output_covergroup
