@@ -8,6 +8,7 @@ class transmitter_basic_test extends transmitter_test_base;
 
 
 	transmitter_baud_sequence bus_baud_sequence;
+	transmitter_threshold_sequence bus_threshold_sequence;
 	
 
 	virtual function void build_phase(uvm_phase phase);
@@ -16,6 +17,9 @@ class transmitter_basic_test extends transmitter_test_base;
 
 		bus_baud_sequence = new("bus_baud_sequence", `TRANSFERS_PER_BAUDRATE);
 		uvm_report_info(get_name(), "Created bus sequence for baudrate select", UVM_DEBUG);
+
+		bus_threshold_sequence = new("bus_threshold_sequence", `TRANSFERS_PER_BAUDRATE);
+		uvm_report_info(get_name(), "Created bus sequence for buffer full threshold", UVM_DEBUG);
 
 		uvm_report_info(get_name(), "Finished build phase", UVM_DEBUG);
 	endfunction: build_phase
@@ -32,7 +36,11 @@ class transmitter_basic_test extends transmitter_test_base;
 		uvm_report_info(get_name(), "Starting run phase...", UVM_DEBUG);
 		phase.raise_objection(this);
 
+		uvm_report_info(get_name(), "Starting baudrate select sequence", UVM_DEBUG);
 		bus_baud_sequence.start(environment.agent.sequencer);
+
+		uvm_report_info(get_name(), "Starting buffer full threshold sequence", UVM_DEBUG);
+		bus_threshold_sequence.start(environment.agent.sequencer);
 
 		phase.drop_objection(this);
 		uvm_report_info(get_name(), "Finished run phase", UVM_DEBUG);
