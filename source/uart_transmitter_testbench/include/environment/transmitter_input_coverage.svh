@@ -31,20 +31,14 @@ class transmitter_input_coverage extends uvm_subscriber#(transmitter_sequence_it
         }
 
         write_enable : coverpoint transfer.write_enable {
-            bins write_enable_0 = {1'b0};
-            bins write_enable_1 = {1'b1};
-        }
-
-        baudrate_select : coverpoint transfer.baudrate_select {
-            bins baudrate_select_CLK16  = {BAUD_CLK16};
-            bins baudrate_select_CLK32  = {BAUD_CLK32};
-            bins baudrate_select_CLK64  = {BAUD_CLK64};
-            bins baudrate_select_CLK128 = {BAUD_CLK128};
+            bins all = {1'b1};
         }
 
         buffer_full_threshold : coverpoint transfer.buffer_full_threshold {
-            bins buffer_full_threshold_all = {[6'd0 : 6'd63]};
+            bins all = {[6'd1 : 6'd63]};
         }
+
+        baudrate_select : coverpoint transfer.baudrate_select;
 
     endgroup: input_covergroup
 
@@ -65,7 +59,7 @@ class transmitter_input_coverage extends uvm_subscriber#(transmitter_sequence_it
         uvm_report_info(get_name(), "Starting report phase...", UVM_DEBUG);
         super.report_phase(phase);
 
-        uvm_report_info(get_name(), $sformatf("########## COVERAGE: Input - %.2f%% ##########", input_covergroup.get_inst_coverage()), UVM_LOW);
+        uvm_report_info(get_name(), $sformatf("########## COVERAGE: Input - %.2f%% ##########", input_covergroup.get_coverage()), UVM_LOW);
 
         uvm_report_info(get_name(), "Finished report phase", UVM_DEBUG);
     endfunction: report_phase

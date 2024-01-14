@@ -49,7 +49,7 @@ class transmitter_output_coverage extends uvm_subscriber#(uart_sequence_item);
         uvm_report_info(get_name(), "Starting report phase...", UVM_DEBUG);
         super.report_phase(phase);
 
-        uvm_report_info(get_name(), $sformatf("########## COVERAGE: Output - %.2f%% ##########", output_covergroup.get_inst_coverage()), UVM_LOW);
+        uvm_report_info(get_name(), $sformatf("########## COVERAGE: Output - %.2f%% ##########", output_covergroup.get_coverage()), UVM_LOW);
 
         uvm_report_info(get_name(), "Finished report phase", UVM_DEBUG);
     endfunction: report_phase

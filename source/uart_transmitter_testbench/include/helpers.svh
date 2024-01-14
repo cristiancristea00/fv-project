@@ -15,9 +15,9 @@ function void print_transfer(uvm_sequence_item transfer, uvm_printer printer);
 endfunction: print_transfer
 
 
-`define TRANSFERS_PER_BAUDRATE    10000
-`define BASE_DELAY                50
-`define TOTAL_DELAY               `BASE_DELAY * `TRANSFERS_PER_BAUDRATE
+`define TRANSFERS_PER_ELEMENT    1000
+`define BASE_DELAY               200
+`define TOTAL_DELAY              `BASE_DELAY * `TRANSFERS_PER_ELEMENT
 
 
 typedef enum longint {

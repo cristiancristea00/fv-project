@@ -15,10 +15,10 @@ class transmitter_basic_test extends transmitter_test_base;
 		uvm_report_info(get_name(), "Starting build phase...", UVM_DEBUG);
 		super.build_phase(phase);
 
-		bus_baud_sequence = new("bus_baud_sequence", `TRANSFERS_PER_BAUDRATE);
+		bus_baud_sequence = transmitter_baud_sequence::type_id::create("bus_baud_sequence");
 		uvm_report_info(get_name(), "Created bus sequence for baudrate select", UVM_DEBUG);
 
-		bus_threshold_sequence = new("bus_threshold_sequence", `TRANSFERS_PER_BAUDRATE);
+		bus_threshold_sequence = transmitter_threshold_sequence::type_id::create("bus_threshold_sequence");
 		uvm_report_info(get_name(), "Created bus sequence for buffer full threshold", UVM_DEBUG);
 
 		uvm_report_info(get_name(), "Finished build phase", UVM_DEBUG);

@@ -6,11 +6,15 @@ class transmitter_sequence_item extends uvm_sequence_item;
         super.new(name);
     endfunction
 
-
-    rand  bit              write_enable;
-    randc bit        [7:0] data;
-    bit              [5:0] buffer_full_threshold;
-    baudrate_select_t      baudrate_select;
+    /* 
+       We want Cyclic Randomization for the data because there are instances 
+       where two consecutive transfers have the same data and the input monitor 
+       will not detect the second transfer. 
+    */
+    rand bit        write_enable;
+    randc bit [7:0] data;
+    bit       [5:0] buffer_full_threshold;
+    bit       [1:0] baudrate_select;
 
 
     function void kill();

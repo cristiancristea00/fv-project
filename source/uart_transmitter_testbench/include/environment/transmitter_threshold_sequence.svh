@@ -2,7 +2,7 @@ class transmitter_threshold_sequence extends uvm_sequence#(transmitter_sequence_
 
    `uvm_object_utils(transmitter_threshold_sequence)
 
-    function new(string name = "transmitter_threshold_sequence", int number_of_transfers = 1000);
+    function new(string name = "transmitter_threshold_sequence", int number_of_transfers = `TRANSFERS_PER_ELEMENT);
         super.new(name);
 
         this.number_of_transfers = number_of_transfers;
