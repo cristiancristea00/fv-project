@@ -8,7 +8,7 @@ package environment_pkg;
 
 	`include "uart_sequence_item.svh"
 	`include "transmitter_sequence_item.svh"
-	`include "transmitter_sequence.svh"
+	`include "transmitter_baud_sequence.svh"
 	`include "transmitter_driver.svh"
 	`include "transmitter_input_monitor.svh"
 	`include "transmitter_output_monitor.svh"

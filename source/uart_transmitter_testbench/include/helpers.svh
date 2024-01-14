@@ -16,8 +16,8 @@ endfunction: print_transfer
 
 
 `define TRANSFERS_PER_BAUDRATE    10000
-`define BASE_DELAY                150
-`define TOTAL_DELAY                     `BASE_DELAY * `TRANSFERS_PER_BAUDRATE
+`define BASE_DELAY                50
+`define TOTAL_DELAY               `BASE_DELAY * `TRANSFERS_PER_BAUDRATE
 
 
 typedef enum longint {
