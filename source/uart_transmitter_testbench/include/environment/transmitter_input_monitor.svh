@@ -58,7 +58,6 @@ class transmitter_input_monitor extends uvm_monitor;
 		transmitter_sequence_item input_transfer;
 
 		forever begin
-			system_interface.wait_for_bus_change();
 			system_interface.wait_clock_pos();
 
 			if (system_interface.reset == 0) begin

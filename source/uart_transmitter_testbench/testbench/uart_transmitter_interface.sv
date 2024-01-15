@@ -44,11 +44,6 @@ interface uart_transmitter_interface;
     endtask: wait_until_reset_high
 
 
-    task wait_for_bus_change();
-        @ (write_enable or data or buffer_full_threshold or baudrate_select);
-    endtask: wait_for_bus_change
-
-
     task wait_for_start_of_frame();
         @ (negedge data_out);
     endtask: wait_for_start_of_frame
