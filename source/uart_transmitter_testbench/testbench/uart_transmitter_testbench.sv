@@ -17,7 +17,7 @@ module uart_transmitter_testbench;
 		uvm_config_db#(virtual uart_transmitter_interface)::set(null, "*", "system_interface", system_interface);
 		`uvm_info("STEP", "Set system interface into UVM Configuration Database", UVM_DEBUG)
 		
-		run_test();
+		run_test("transmitter_basic_test");
 	end
 
 

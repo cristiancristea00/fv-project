@@ -69,7 +69,7 @@ class transmitter_scoreboard extends uvm_scoreboard;
             transmitter_sequence_item expected = buffer.pop_front();
 
             if (transfer.get_initial_data() == expected.get_uart_data()) begin
-                `uvm_info("CHECK", $sformatf("PASSED: Expected %s, got %s", expected.get_data_str(), transfer.get_data_str()), UVM_LOW)
+                `uvm_info("CHECK", $sformatf("PASSED: Expected %s, got %s", expected.get_data_str(), transfer.get_data_str()), UVM_MEDIUM)
             end
             else begin
                 `uvm_error("CHECK", $sformatf("FAILED: Expected %s, got %s", expected.get_data_str(), transfer.get_data_str()))

@@ -7,14 +7,13 @@ class transmitter_environment extends uvm_env;
 	endfunction
 
 
-	transmitter_agent agent;
+	transmitter_input_agent input_agent;
+	transmitter_output_agent output_agent;
 
 	transmitter_scoreboard scoreboard;
 
 	transmitter_input_coverage input_coverage;
 	transmitter_output_coverage output_coverage;
-
-	uvm_table_printer printer;
 
 
 	virtual function void build_phase(uvm_phase phase);
@@ -22,8 +21,11 @@ class transmitter_environment extends uvm_env;
 
 		super.build_phase(phase);
 
-		agent = transmitter_agent::type_id::create("agent", this);
-		`uvm_info("STEP", "Created agent", UVM_DEBUG)
+		input_agent = transmitter_input_agent::type_id::create("input_agent", this);
+		`uvm_info("STEP", "Created input agent", UVM_DEBUG)
+
+		output_agent = transmitter_output_agent::type_id::create("output_agent", this);
+		`uvm_info("STEP", "Created output agent", UVM_DEBUG)
 
 		scoreboard = transmitter_scoreboard::type_id::create("scoreboard", this);
 		`uvm_info("STEP", "Created scoreboard", UVM_DEBUG)
@@ -34,18 +36,6 @@ class transmitter_environment extends uvm_env;
 		output_coverage = transmitter_output_coverage::type_id::create("output_coverage", this);
 		`uvm_info("STEP", "Created output coverage", UVM_DEBUG)
 
-		printer = new();
-		printer.knobs.type_name      = 0;
-		printer.knobs.size           = 0;
-		printer.knobs.indent         = 4;
-		printer.knobs.dec_radix      = "";
-		printer.knobs.unsigned_radix = "";
-		printer.knobs.bin_radix      = "";
-		printer.knobs.hex_radix      = "0x";
-
-		uvm_config_db#(uvm_printer)::set(this, "*", "printer", printer);
-		`uvm_info("STEP", "Set printer into UVM Configuration Database", UVM_DEBUG)
-
 		`uvm_info("STEP", "Finished build phase", UVM_DEBUG)
 	endfunction: build_phase
 
@@ -55,16 +45,16 @@ class transmitter_environment extends uvm_env;
 
 		super.connect_phase(phase);
 
-		agent.input_monitor.input_monitor_ap.connect(scoreboard.transmitter_input_bus_ap);
+		input_agent.input_monitor.input_monitor_ap.connect(scoreboard.transmitter_input_bus_ap);
 		`uvm_info("STEP", "Connected input monitor to scoreboard", UVM_DEBUG)
 
-		agent.input_monitor.input_monitor_ap.connect(input_coverage.analysis_export);
+		input_agent.input_monitor.input_monitor_ap.connect(input_coverage.analysis_export);
 		`uvm_info("STEP", "Connected input monitor to input coverage", UVM_DEBUG)
 
-		agent.output_monitor.output_monitor_ap.connect(scoreboard.transmitter_output_bus_ap);
+		output_agent.output_monitor.output_monitor_ap.connect(scoreboard.transmitter_output_bus_ap);
 		`uvm_info("STEP", "Connected output monitor to scoreboard", UVM_DEBUG)
 
-		agent.output_monitor.output_monitor_ap.connect(output_coverage.analysis_export);
+		output_agent.output_monitor.output_monitor_ap.connect(output_coverage.analysis_export);
 		`uvm_info("STEP", "Connected output monitor to output coverage", UVM_DEBUG)
 
 		`uvm_info("STEP", "Finished connect phase", UVM_DEBUG)

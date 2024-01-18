@@ -1,8 +1,8 @@
-class transmitter_agent extends uvm_agent;
+class transmitter_input_agent extends uvm_agent;
 
-    `uvm_component_utils(transmitter_agent)
+    `uvm_component_utils(transmitter_input_agent)
 
-    function new (string name = "transmitter_agent", uvm_component parent = null);
+    function new (string name = "transmitter_input_agent", uvm_component parent = null);
         super.new(name, parent);
     endfunction : new
 
@@ -10,7 +10,6 @@ class transmitter_agent extends uvm_agent;
     transmitter_sequencer sequencer;
     transmitter_driver driver;
     transmitter_input_monitor input_monitor;
-    transmitter_output_monitor output_monitor;
 
 
     function void build_phase(uvm_phase phase);
@@ -26,9 +25,6 @@ class transmitter_agent extends uvm_agent;
 
         input_monitor = transmitter_input_monitor::type_id::create("input_monitor", this);
         `uvm_info("STEP", "Created input monitor", UVM_DEBUG)
-
-        output_monitor = transmitter_output_monitor::type_id::create("output_monitor", this);
-        `uvm_info("STEP", "Created output monitor", UVM_DEBUG)
 
         `uvm_info("STEP", "Finished build phase", UVM_DEBUG)
     endfunction : build_phase
@@ -46,4 +42,4 @@ class transmitter_agent extends uvm_agent;
     endfunction : connect_phase
 
  
-endclass : transmitter_agent
+endclass : transmitter_input_agent
