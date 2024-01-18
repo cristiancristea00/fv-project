@@ -20,36 +20,39 @@ class transmitter_scoreboard extends uvm_scoreboard;
 
 
     virtual function void build_phase(uvm_phase phase);
-        uvm_report_info(get_name(), "Starting build phase...", UVM_DEBUG);
+        `uvm_info("STEP", "Starting build phase...", UVM_DEBUG)
+
         super.build_phase(phase);
 
         transmitter_input_bus_ap  = new("transmitter_input_bus_ap", this);
         transmitter_output_bus_ap = new("transmitter_output_bus_ap", this);
 
-        uvm_report_info(get_name(), "Finished build phase", UVM_DEBUG);
+        `uvm_info("STEP", "Finished build phase", UVM_DEBUG)
     endfunction: build_phase
 
 
     virtual function void connect_phase(uvm_phase phase);
-        uvm_report_info(get_name(), "Starting connect phase...", UVM_DEBUG);
+        `uvm_info("STEP", "Starting connect phase...", UVM_DEBUG)
+
         super.connect_phase(phase);
 
-        uvm_report_info(get_name(), "Finished connect phase", UVM_DEBUG);
+        `uvm_info("STEP", "Finished connect phase", UVM_DEBUG)
     endfunction: connect_phase
 
 
     virtual function void report_phase(uvm_phase phase);
-        uvm_report_info(get_name(), "Starting report phase...", UVM_DEBUG);
+        `uvm_info("STEP", "Starting report phase...", UVM_DEBUG)
+
         super.report_phase(phase);
 
         if (fail_count == 0) begin
-            uvm_report_info(get_name(), "########## PASSED: No errors detected ##########", UVM_LOW);
+            `uvm_info("RESULT", "########## PASSED: No errors detected ##########", UVM_LOW)
         end
         else begin
-            uvm_report_error(get_name(), $sformatf("########## FAILED: %0d errors detected ##########", fail_count));
+            `uvm_error("RESULT", $sformatf("########## FAILED: %0d errors detected ##########", fail_count))
         end
 
-        uvm_report_info(get_name(), "Finished report phase", UVM_DEBUG);
+        `uvm_info("STEP", "Finished report phase", UVM_DEBUG)
     endfunction: report_phase
 
 
@@ -60,16 +63,16 @@ class transmitter_scoreboard extends uvm_scoreboard;
 
     virtual function void write_output_bus_ap(uart_sequence_item transfer);
         if (buffer.size() == 0) begin
-            uvm_report_error(get_name(), "No data in buffer");
+            `uvm_error("CHECK", "No data in buffer")
         end
         else begin
             transmitter_sequence_item expected = buffer.pop_front();
 
             if (transfer.get_initial_data() == expected.get_uart_data()) begin
-                uvm_report_info(get_name(), $sformatf("PASSED: Expected %s, got %s", expected.get_data_str(), transfer.get_data_str()), UVM_LOW);
+                `uvm_info("CHECK", $sformatf("PASSED: Expected %s, got %s", expected.get_data_str(), transfer.get_data_str()), UVM_LOW)
             end
             else begin
-                uvm_report_error(get_name(), $sformatf("FAILED: Expected %s, got %s", expected.get_data_str(), transfer.get_data_str()));
+                `uvm_error("CHECK", $sformatf("FAILED: Expected %s, got %s", expected.get_data_str(), transfer.get_data_str()))
                 ++fail_count;
             end
         end

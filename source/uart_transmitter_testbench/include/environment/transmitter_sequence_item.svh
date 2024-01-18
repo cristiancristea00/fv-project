@@ -4,6 +4,11 @@ class transmitter_sequence_item extends uvm_sequence_item;
 
     function new(string name = "transmitter_sequence_item");
         super.new(name);
+
+        this.write_enable          = 0;
+        this.data                  = 0;
+        this.buffer_full_threshold = 0;
+        this.baudrate_select       = 0;
     endfunction
 
 

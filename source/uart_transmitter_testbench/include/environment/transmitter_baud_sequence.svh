@@ -12,7 +12,7 @@ class transmitter_baud_sequence extends uvm_sequence#(transmitter_sequence_item)
     
 
     task body();
-        transmitter_sequence_item transfer =  transmitter_sequence_item::type_id::create("transfer");
+        transmitter_sequence_item transfer = transmitter_sequence_item::type_id::create("transfer");
 
         delay_t delay;
 
@@ -22,7 +22,7 @@ class transmitter_baud_sequence extends uvm_sequence#(transmitter_sequence_item)
     
             const bit [7:0] special_values[4] = '{8'h00, 8'h55, 8'hAA, 8'hFF};
 
-            uvm_report_info(get_name(), $sformatf("Starting baudrate select %s", bauds[baud].name()), UVM_INFO);
+            `uvm_info("BAUDRATE", $sformatf("Starting baudrate select %s", bauds[baud].name()), UVM_INFO)
 
             for (int idx = 0; idx < 4; ++idx) begin
                     start_item(transfer);
@@ -35,7 +35,9 @@ class transmitter_baud_sequence extends uvm_sequence#(transmitter_sequence_item)
 
             repeat(number_of_transfers) begin
                 start_item(transfer);
-                transfer.randomize();
+                if (!transfer.randomize()) begin
+                    `uvm_fatal("RANDOM", "Failed to randomize transfer")
+                end
                 transfer.buffer_full_threshold = 32;
                 transfer.baudrate_select       = bauds[baud];
                 finish_item(transfer);

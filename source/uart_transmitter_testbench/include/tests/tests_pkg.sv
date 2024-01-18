@@ -6,8 +6,7 @@ package tests_pkg;
 
 	import environment_pkg::*;
 
-	// Tests
-	`include "transmitter_test_base.svh"
+	`include "transmitter_base_test.svh"
 	`include "transmitter_basic_test.svh"
 
 

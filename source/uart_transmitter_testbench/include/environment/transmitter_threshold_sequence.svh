@@ -18,7 +18,7 @@ class transmitter_threshold_sequence extends uvm_sequence#(transmitter_sequence_
     
             const bit [7:0] special_values[4] = '{8'h00, 8'h55, 8'hAA, 8'hFF};
 
-            uvm_report_info(get_name(), $sformatf("Starting threshold select %0d", threshold), UVM_INFO);
+            `uvm_info("THRESHOLD", $sformatf("Starting threshold select %0d", threshold), UVM_INFO)
 
             for (int idx = 0; idx < 4; ++idx) begin
                     start_item(transfer);
@@ -31,7 +31,9 @@ class transmitter_threshold_sequence extends uvm_sequence#(transmitter_sequence_
 
             repeat(number_of_transfers) begin
                 start_item(transfer);
-                transfer.randomize();
+                if (!transfer.randomize()) begin
+                    `uvm_fatal("RANDOM", "Failed to randomize transfer")
+                end
                 transfer.buffer_full_threshold = threshold;
                 transfer.baudrate_select       = BAUD_CLK16;
                 finish_item(transfer);
