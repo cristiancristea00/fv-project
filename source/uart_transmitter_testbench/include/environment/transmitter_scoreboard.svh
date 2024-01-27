@@ -57,7 +57,12 @@ class transmitter_scoreboard extends uvm_scoreboard;
 
 
     virtual function void write_input_bus_ap(transmitter_sequence_item transfer);
-        buffer.push_back(transfer);
+        if (transfer.reset == 0) begin
+            buffer.delete();
+        end
+        else begin
+            buffer.push_back(transfer);
+        end
     endfunction: write_input_bus_ap
 
 

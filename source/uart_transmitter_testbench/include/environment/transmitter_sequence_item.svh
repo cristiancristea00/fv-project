@@ -12,6 +12,7 @@ class transmitter_sequence_item extends uvm_sequence_item;
     endfunction
 
 
+    bit            reset;
     rand bit       write_enable;
     rand bit [7:0] data;
     bit      [5:0] buffer_full_threshold;
@@ -19,6 +20,7 @@ class transmitter_sequence_item extends uvm_sequence_item;
 
 
     function void kill();
+        reset        = 1;
         write_enable = 0;
         data         = 0;
     endfunction: kill
@@ -30,6 +32,7 @@ class transmitter_sequence_item extends uvm_sequence_item;
         printer.print_string("data", get_data_str());
         printer.print_string("uart_data", get_uart_data_str());
         printer.print_string("write_enable", write_enable ? "True" : "False");
+        printer.print_string("reset", reset ? "True" : "False");
     endfunction: do_print
 
 

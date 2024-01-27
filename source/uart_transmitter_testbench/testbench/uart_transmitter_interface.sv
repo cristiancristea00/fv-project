@@ -25,23 +25,18 @@ interface uart_transmitter_interface;
 
 
     task wait_reset_trigger();
-        @ (negedge reset);
+        forever begin
+            @ (posedge clock);
+            if (reset == 0) begin
+                break;
+            end
+        end
     endtask: wait_reset_trigger
 
 
     task wait_reset_clear();
         @ (posedge reset);
     endtask: wait_reset_clear
-
-
-    task wait_until_reset_low();
-        wait (reset == 0);
-    endtask: wait_until_reset_low
-
-
-    task wait_until_reset_high();
-        wait (reset == 1);
-    endtask: wait_until_reset_high
 
 
     task wait_for_start_of_frame();
@@ -71,7 +66,8 @@ interface uart_transmitter_interface;
     endfunction: inputs_reset
 
 
-    function void inputs_drive(logic write_enable_val, logic [7:0] data_val, logic [5:0] buffer_full_threshold_val, logic [1:0] baudrate_select_val);
+    function void inputs_drive(bit reset_val, bit write_enable_val, bit [7:0] data_val, bit [5:0] buffer_full_threshold_val, bit [1:0] baudrate_select_val);
+        reset                 = reset_val;
         write_enable          = write_enable_val;
         data                  = data_val;
         buffer_full_threshold = buffer_full_threshold_val;

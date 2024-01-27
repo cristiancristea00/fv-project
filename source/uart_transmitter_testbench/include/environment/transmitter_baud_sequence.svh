@@ -26,6 +26,7 @@ class transmitter_baud_sequence extends uvm_sequence#(transmitter_sequence_item)
 
             for (int idx = 0; idx < 4; ++idx) begin
                     start_item(transfer);
+                    transfer.reset                 = 1;
                     transfer.write_enable          = 1;
                     transfer.data                  = special_values[idx];
                     transfer.buffer_full_threshold = 32;
@@ -38,6 +39,7 @@ class transmitter_baud_sequence extends uvm_sequence#(transmitter_sequence_item)
                 if (!transfer.randomize()) begin
                     `uvm_fatal("RANDOM", "Failed to randomize transfer")
                 end
+                transfer.reset                 = 1;
                 transfer.buffer_full_threshold = 32;
                 transfer.baudrate_select       = bauds[baud];
                 finish_item(transfer);

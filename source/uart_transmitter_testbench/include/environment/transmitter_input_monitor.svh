@@ -62,27 +62,43 @@ class transmitter_input_monitor extends uvm_monitor;
 		forever begin
 			system_interface.wait_clock_pos();
 
-			if (system_interface.reset == 0) begin
-				system_interface.wait_until_reset_high();
+			input_transfer = get_transfer();
+
+			if (input_transfer.reset == 0) begin
+				process_transfer(input_transfer, "reset");
+				system_interface.wait_reset_clear();
 				continue;
 			end
-
-			input_transfer = get_transfer();
 
 			if (input_transfer.write_enable == 0 || system_interface.buffer_full == 1) begin
 				continue;
 			end
 
-			`uvm_info("TRANSFER", "Got new transfer on the input bus", UVM_DEBUG)
-			print_transfer(input_transfer, printer);
-			input_monitor_ap.write(input_transfer);
+			process_transfer(input_transfer);
 		end
 	endtask: monitor_input
+
+
+	protected function process_transfer(transmitter_sequence_item transfer, string log_type = "transfer");
+		if (log_type == "reset") begin
+			`uvm_info("TRANSFER", "Got new reset transfer on the input bus", UVM_DEBUG)
+		end 
+		else if (log_type == "transfer") begin
+			`uvm_info("TRANSFER", "Got new transfer on the input bus", UVM_DEBUG)
+		end
+		else begin
+			`uvm_fatal("TRANSFER", "Unknown transfer type")
+		end
+
+		print_transfer(transfer, printer);
+		input_monitor_ap.write(transfer);
+	endfunction: process_transfer
 
 
 	protected function transmitter_sequence_item get_transfer();
 		transmitter_sequence_item input_transfer = transmitter_sequence_item::type_id::create("input_transfer");
 
+		input_transfer.reset                 = system_interface.reset;
 		input_transfer.data                  = system_interface.data;
 		input_transfer.write_enable          = system_interface.write_enable;
 		input_transfer.buffer_full_threshold = system_interface.buffer_full_threshold;

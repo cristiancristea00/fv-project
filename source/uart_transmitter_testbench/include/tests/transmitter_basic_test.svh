@@ -7,8 +7,9 @@ class transmitter_basic_test extends transmitter_base_test;
 	endfunction: new
 
 
-	transmitter_baud_sequence bus_baud_sequence;
+	transmitter_baud_sequence      bus_baud_sequence;
 	transmitter_threshold_sequence bus_threshold_sequence;
+	transmitter_reset_sequence     bus_reset_sequence;
 	
 
 	virtual function void build_phase(uvm_phase phase);
@@ -21,6 +22,9 @@ class transmitter_basic_test extends transmitter_base_test;
 
 		bus_threshold_sequence = transmitter_threshold_sequence::type_id::create("bus_threshold_sequence");
 		`uvm_info("STEP", "Created bus sequence for buffer full threshold", UVM_DEBUG)
+
+		bus_reset_sequence = transmitter_reset_sequence::type_id::create("bus_reset_sequence");
+		`uvm_info("STEP", "Created bus sequence for reset", UVM_DEBUG)
 
 		`uvm_info("STEP", "Finished build phase", UVM_DEBUG)
 	endfunction: build_phase
@@ -40,11 +44,14 @@ class transmitter_basic_test extends transmitter_base_test;
 
 		phase.raise_objection(this);
 
-		`uvm_info("STEP", "Starting baudrate select sequence", UVM_DEBUG)
+		`uvm_info("STEP", "Starting baudrate select sequence", UVM_INFO)
 		bus_baud_sequence.start(environment.input_agent.sequencer);
 
-		`uvm_info("STEP", "Starting buffer full threshold sequence", UVM_DEBUG)
+		`uvm_info("STEP", "Starting buffer full threshold sequence", UVM_INFO)
 		bus_threshold_sequence.start(environment.input_agent.sequencer);
+
+		`uvm_info("STEP", "Starting reset sequence", UVM_INFO)
+		bus_reset_sequence.start(environment.input_agent.sequencer);
 
 		phase.drop_objection(this);
 		

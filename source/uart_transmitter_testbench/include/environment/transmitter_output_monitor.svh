@@ -60,12 +60,24 @@ class transmitter_output_monitor extends uvm_monitor;
         uart_sequence_item output_transfer;
 
         forever begin
-            system_interface.wait_for_start_of_frame();
+            fork
+                begin: monitor_output_fork
+                    system_interface.wait_for_start_of_frame();
 
-            get_transfer(output_transfer);
-            `uvm_info("TRANSFER", "Got new transfer on the output bus", UVM_DEBUG)
-            print_transfer(output_transfer, printer);
-            output_monitor_ap.write(output_transfer);
+                    get_transfer(output_transfer);
+                    `uvm_info("TRANSFER", "Got new transfer on the output bus", UVM_DEBUG)
+                    print_transfer(output_transfer, printer);
+                    output_monitor_ap.write(output_transfer);
+                end
+
+                begin: monitor_reset_fork
+                    system_interface.wait_reset_trigger();
+                    `uvm_info("RESET", "Reset triggered, disabling current output transfer", UVM_DEBUG)
+                    disable monitor_output_fork;
+                end
+            join_any
+
+            disable fork;
         end
     endtask: monitor_output
 

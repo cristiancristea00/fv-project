@@ -30,6 +30,8 @@ class transmitter_input_coverage extends uvm_subscriber#(transmitter_sequence_it
             bins data_0xFF = {8'hFF};
         }
 
+        reset : coverpoint transfer.reset;
+
         write_enable : coverpoint transfer.write_enable {
             bins all = {1'b1};
         }
