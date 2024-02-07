@@ -69,6 +69,7 @@ class transmitter_scoreboard extends uvm_scoreboard;
     virtual function void write_output_bus_ap(uart_sequence_item transfer);
         if (buffer.size() == 0) begin
             `uvm_error("CHECK", "No data in buffer")
+            ++fail_count;
         end
         else begin
             transmitter_sequence_item expected = buffer.pop_front();
