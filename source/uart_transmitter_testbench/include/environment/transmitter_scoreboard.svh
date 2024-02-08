@@ -74,12 +74,20 @@ class transmitter_scoreboard extends uvm_scoreboard;
         else begin
             transmitter_sequence_item expected = buffer.pop_front();
 
-            if (transfer.get_initial_data() == expected.get_uart_data()) begin
-                `uvm_info("CHECK", $sformatf("PASSED: Expected %s, got %s", expected.get_data_str(), transfer.get_data_str()), UVM_MEDIUM)
-            end
-            else begin
+            if (transfer.get_initial_data() != expected.get_uart_data()) begin
                 `uvm_error("CHECK", $sformatf("FAILED: Expected %s, got %s", expected.get_data_str(), transfer.get_data_str()))
                 ++fail_count;
+            end
+            else if (transfer.get_start_bit() != 0) begin
+                `uvm_error("CHECK", "FAILED: Start bit not 0")
+                ++fail_count;
+            end
+            else if (transfer.get_stop_bit() != 1) begin
+                `uvm_error("CHECK", "FAILED: Stop bit not 1")
+                ++fail_count;
+            end
+            else begin
+                `uvm_info("CHECK", $sformatf("PASSED: Expected %s, got %s", expected.get_data_str(), transfer.get_data_str()), UVM_MEDIUM)
             end
         end
     endfunction: write_output_bus_ap
